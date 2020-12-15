@@ -37,3 +37,10 @@ def formFeedback(request):
 def listFeedback(request):
     feedbacks = Feedback.objects.all()
     return render (request,'main/feedbackList.html',{'feedbacks':feedbacks})
+
+def signUp(request):
+    return redirect
+def login_view(request):
+    return redirect
+def logout_view(request):
+    return redirect

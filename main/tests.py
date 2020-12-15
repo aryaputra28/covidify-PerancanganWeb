@@ -7,10 +7,13 @@ from django.test import LiveServerTestCase, TestCase, tag
 from django.urls import reverse
 from django.test import TestCase
 from django.test import Client
-from django.urls import resolve
+from django.urls import resolve, reverse
 from django.http import HttpRequest, response
 from main.models import *
-import main.views
+#import main.views
+from .views import signUp, login_view, logout_view
+from .forms import SignUpForm, LoginForm
+
 # from selenium import webdriver
 class DetailTest(TestCase):
     def test_input_feedback(self):
@@ -33,6 +36,118 @@ class DetailTest(TestCase):
     def test_main_penggunaan_templateIndex(self):
         response = Client().get('/')
         self.assertTemplateUsed(response,"main/home.html")
+    
+    #login page
+    def test_does_login_page_exist(self):
+        response = Client().get('/login/')
+        self.assertEqual(response.status_code, 200)
+    
+    def test_check_function_used_by_login(self):
+        found = resolve('/login/')
+        self.assertEqual(found.func, login_view)
+    
+    def test_does_login_views_show_correct_template(self):
+        response = Client().get('/login/')
+        self.assertTemplateUsed(response, 'main/login.html')
+    
+    #sign up page
+
+    def test_does_signup_page_exist(self):
+        response = Client().get('/signup/')
+        self.assertEqual(response.status_code, 200)
+    
+    def test_check_function_used_by_signup(self):
+        found = resolve('/signup/')
+        self.assertEqual(found.func, signUp)
+    
+    def test_does_signup_views_show_correct_template(self):
+        response = Client().get('/signup/')
+        self.assertTemplateUsed(response, 'main/signup.html')
+    
+    #sign out test
+
+    def test_does_sign_out_work(self):
+        response = Client().get('/logout/')
+        self.assertEqual(response.status_code, 302)
+    
+    def test_check_function_used_by_logout(self):
+        found = resolve('/logout/')
+        self.assertEqual(found.func, logout_view)
+    
+    #test login form
+    
+    def test_forms_login_invalid(self):
+        form_login = LoginForm(data={
+            "username": "a",
+            "password": ""
+        })
+        self.assertFalse(form_login.is_valid())
+    
+    #test sign up form
+
+    def test_forms_signup_valid(self):
+        form_reg = SignUpForm(data={
+            "username": "sipewe",
+            "email": "sipewe@example.com",
+            'password1': 'test12345',
+            'password2': 'test12345',
+        })
+        self.assertTrue(form_reg.is_valid())
+    
+    def test_forms_signup_invalid(self):
+        form_reg = SignUpForm(data={
+            "username": "",
+            "email": "sipewe@example.com",
+            'password1': 'test12345',
+            'password2': 'test123',
+        })
+        self.assertFalse(form_reg.is_valid())
+    
+class ViewsTest(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.login = reverse("login")
+        self.signup = reverse("signup")
+    
+    def test_POST_login_valid(self):
+        response = self.client.post(self.login,
+                                    {
+                                        'username': 'sipewe',
+                                        'password ': "test12345"
+                                    }, follow=True)
+        self.assertEqual(response.status_code, 200)
+    
+    def test_POST_login_invalid(self):
+        response = self.client.post(self.login,
+                                    {
+                                        'username': '',
+                                        'password ': ""
+                                    }, follow=True)
+        self.assertTemplateUsed(response, 'main/login.html')
+    
+    def test_POST_signup_valid(self):
+        response = self.client.post(self.signup,
+                                    {
+                                        "username": "sipewe",
+                                        "email": "sipewe@example.com",
+                                        'password1': 'test12345',
+                                        'password2': 'test12345',
+                                    }, follow=True)
+        self.assertEqual(response.status_code, 200)
+    
+    def test_POST_signup_invalid(self):
+        response = self.client.post(self.signup,
+                                    {
+                                        "username": "sipewe",
+                                        "email": "sipewe@example.com",
+                                        'password1': 'test12345',
+                                        'password2': 'test123',
+                                    }, follow=True)
+        self.assertTemplateUsed(response, 'main/signup.html')
+
+
+    
+
 
 
 # @tag('functional')
