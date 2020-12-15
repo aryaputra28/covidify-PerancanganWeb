@@ -1,8 +1,9 @@
-[![pipeline status](https://gitlab.com/gilangcy/tk-ppw/badges/master/pipeline.svg)](https://gitlab.com/gilangcy/tk-ppw/-/commits/master)
+[![pipeline status](https://gitlab.com/gilangcy/tugas-kelompok-2-ppw/badges/master/pipeline.svg)](https://gitlab.com/gilangcy/tugas-kelompok-2-ppw/-/commits/master)
 
-[![coverage report](https://gitlab.com/gilangcy/tk-ppw/badges/master/coverage.svg)](https://gitlab.com/gilangcy/tk-ppw/-/commits/master)
+[![coverage report](https://gitlab.com/gilangcy/tugas-kelompok-2-ppw/badges/master/coverage.svg)](https://gitlab.com/gilangcy/tugas-kelompok-2-ppw/-/commits/master)
 
-Tugas Kelompok 1
+
+Tugas Kelompok 2
 Kelompok A03 
 
 
@@ -12,7 +13,7 @@ Kelompok A03
 4. Gilang Catur Yudishtira (1906293045)
 5. Carissa Alanda Basyah (1906298815)
 
-Link herokuapp = covidify.herokuapp.com
+Link herokuapp = coviidify.herokuapp.com
 
 **Informasi Umum**
 
