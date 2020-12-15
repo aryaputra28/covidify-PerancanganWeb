@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<header>
+  <link rel="stylesheet" href="{% static 'css/rapidTest.css' %}"/>
+</header>
+{% endblock meta %}
+
+{% block content %}
+<div class = "cover2"></div>
+<h2 class = "judul">DAFTAR TEMPAT RAPID TEST</h2>
+
+  <!-- DataTable -->
+  <script>
+    $(document).ready(function() {
+      $('#rapidTest').DataTable({
+          "aLengthMenu":[[3, 5, 10, 25], [3, 5, 10, 25]],
+            "iDisplayLength":3,
+            "ordering":false,         
+      });
+    });
+  </script>
+
+ <!-- Tabel Daftar Tempat Rapid Test -->
+  <div id="tabel">  
+    <div class="container-fluid">
+      <div class="table-responsive-md">
+ 
+        <table id="rapidTest" class="table table-striped" >
+          <thead>
+            <tr style="background-color: #DF6357;color: white;"> 
+              <th id="nama" class="text-center" scope="col">Nama Tempat</th>
+              <th id="tanggal" class="text-center" scope="col">Tanggal Pelaksanaan</th>
+              <th id="biaya" class="text-center" scope="col">Biaya</th>
+              <th id="alamat" class="text-center" scope="col">Alamat</th>   
+            </tr>
+          </thead>
+
+          <!-- Menampilkan data dengan loop data dari obj yang ada di views -->
+          <tbody>
+            {% for i in obj %} 
+            <tr>        
+              <th class="text-center" scope="row">{{i.nama_tempat}}</th>
+              <td class="text-center">{{i.tanggal_pelaksanaan_mulai}} - {{i.tanggal_pelaksanaan_akhir}}</td>
+              <td class="text-center">{{i.biaya}}</td>
+              <td class="text-center">{{i.alamat}}</td>           
+            </tr>
+            {% endfor %}
+          </tbody>
+
+         </table>
+      </div>
+    
+      <!-- Tombol Add yang me-refer ke halaman form -->
+      <div class="d-flex justify-content-end" id="btn-add1">
+        <a href="{% url 'rapidTest:form' %}">
+          <button type="button" class="btn btn-light btn-lg" style="background-color: #DF6357;color: white;">Add</button>
+        </a>
+    </div>
+
+    </div>                        
+  </div>
+
+{% endblock content %}

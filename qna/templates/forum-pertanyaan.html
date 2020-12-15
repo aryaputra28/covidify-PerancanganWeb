@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<header>
+    <link rel="stylesheet" href="{% static 'css/qna.css' %}"/>
+    <div class="cover-qna" >
+    </div>
+</header>
+{% endblock meta %}
+
+{% block content %}
+<br> <br>
+    <h3>
+      <center> <b> LETS DISCUSS ABOUT COVID </b></center>
+    </h3>
+<br/>
+
+<div>
+<div class="container">
+    <div>
+        <a href="{%url 'qna:lihatPertanyaan'%}" class="btn btn-danger">Back</a>
+    </div>
+    <br>
+                
+                <div class="card card-qna">
+                        <div class="border-bottom border-light"><b>{{pertanyaan.penanya}}</b> </div>
+                        <div>{{pertanyaan.pertanyaan}}</div>
+                        <div class="small">{{pertanyaan.location}} on {{pertanyaan.time}}</div>
+                      
+                    <nav class="navbar navbar-inverse">
+                        <div class="nav"></div>
+                            <div class="nav">
+                                
+                                <a class="btn btn-qna3" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                    Reply
+                                </a>
+                            </div>
+                    </nav>  
+                </div>     
+</div>
+<br>
+
+<div class="collapse" id="collapseExample">
+    <div class="container">
+        <div class="card card-qna">
+                <div class="container-sm ">
+                    <div class="form-group">
+                        <form method="POST">
+                            {% csrf_token %}
+                            {{form_balasan.as_p}}
+                            <nav class="navbar navbar-inverse">
+                                <div class="nav navbar">
+
+                                </div>
+                                <div class="nav navbar">
+                                        <button class="btn btn-qna3" type="submit" >Post Now</button>
+                                    </div>
+                            </nav>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<br>
+
+<script>
+    $(document).ready( function () {
+        $('#ktable').DataTable({
+            "dom": 'rtp',
+            "scrollY": "500px",
+            "scrollCollapse": true,
+            "paging": false,
+            "ordering" : false,
+        });
+    });
+</script>
+{% if count > 0 %}
+<div class="container">
+        <table id="ktable" class="table border-0">
+            <thead>
+                <th class="table border-0">View all {{count}} comments</th>
+            </thead>
+            <tbody>
+                {%for i in list_balasan %}
+                {%if i.tanya == pertanyaan %}
+                <tr class=" table border-0">
+                    <td>
+                    <div>
+                                <div class="card card-komen">
+                                    <div class="border-bottom border-dark"><b>{{i.pengomentar}}</b> </div>
+                                    <div class=>{{i.komen}}</div>
+                                    <div class= "small">{{i.location}} on {{i.time}}</div>   
+                        </div> 
+                    </div>
+                    </td>
+                </tr>
+            {%endif %}   
+            {%endfor %} 
+        </tbody>
+        </table>
+</div>
+{% endif %}
+    
+
+{% endblock content %}
+

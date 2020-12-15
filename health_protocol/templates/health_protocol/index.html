@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block meta %}
+<header>
+    <link rel="stylesheet" href="{% static 'css/health_protocol.css' %}"/>
+</header>
+<div class="cover_list">
+    <h1>Protokol Kesehatan</h1>
+</div>
+<br>
+<br>
+{% endblock meta %}
+
+{% block content %}
+<div class="container">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="row flex-row-reverse">
+                <div class="col-md-6 ">
+                    <p id="first">1. Gunakan Masker</p>
+                    <p id="second">Selalu gunakan masker saat bepergian ke manapun terutama ke tempat-tempat keramaian.</p>
+                </div>
+                <div class="col-md-6">
+                    <img src="{% static 'image/Group 96.png' %}" class="img-fluid" alt="Responsive image">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <p id="first">2. Mencuci Tangan</p>
+                <p id="second">
+                    Jangan lupa untuk selalu mencuci tangan.
+                    Hindari langsung menyentuh area wajah sebelum memastikan
+                    tangan sudah bersih dari kuman.
+                </p>
+            </div>
+            <div class="col-md-6" >
+                <img src="{% static 'image/Group 97.png' %}" class="img-fluid" alt="Responsive image">
+            </div>
+            <div class="row flex-row-reverse">
+                <div class="col-md-6" >
+                    <p id="first">3. Membawa Peralatan Pribadi</p>
+                    <p id="second">Membawa peralatan yang diperlukan, seperti hand sanitizer hingga peralatan makan pribadi.</p>
+                </div>
+                <div class="col-md-6" >
+                    <img src="{% static 'image/Group 98.png' %}" class="img-fluid" alt="Responsive image">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <p id="first">4. Menjaga Jarak</p>
+                <p id="second">
+                    Selalu menjaga jarak dan hindari mengunjungi tempat keramaian yang
+                    sulit untuk menghindari kontak fisik dengan orang lain.
+                </p>
+            </div>
+            <div class="col-md-6" >
+                <img src="{% static 'image/Group36.png' %}" class="img-fluid" alt="Responsive image">
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <br><br><br>
+        <h3 style="text-align: center; font-weight: bold">Nah, menurut kamu, adakah cara lain untuk mencegah penyebaran COVID-19?</h3>
+        <table>
+            <tr>
+                <td>
+                    <div class="form-group container">
+                        <div class="card alternativebox">
+                        <form method="POST" action="{% url 'health_protocol:healthProtocol' %}">
+                            {% csrf_token %}
+                            {{input_form.as_p}}
+                    </div>
+                    <nav class="navbar">
+                        <div></div>
+                        <div class="nav navbar"> 
+                            <table>
+                                <tr>
+                                    <td>
+                                        <button class="nav navbar btn btn-post" type="Submit">Post</button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </nav>
+                    </form>
+                </td>
+            </tr>
+            <tr>
+            </tr>
+        </table>
+        <div class="row">
+            <div class="col">
+                <h3 style="text-align: center; font-weight: bold">Lihat jawabanmu dan pengguna lainnya di sini!</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4">
+                <a href="{% url 'health_protocol:alternatives' %}">
+                    <button class="nav navbar btn btn-healthprotocol" type="button">
+                        Menuju List
+                    </button>
+                </a>
+            </div>
+            <div class="col-4"></div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital@1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;1,400&display=swap');
+
+.cover2 {
+    background: url("/static/image/rapidTest.png");
+    position: relative;
+    height: 800px;
+    overflow: hidden;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover; 
+  }
+  
+@media screen and (max-width: 760px) {
+    .cover2 {
+      background: url("/static/image/rapidTestResponsive.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat; 
+    }
+    .form-fld{
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+}
+  
+.judul{
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    font-size: 32px;
+    margin-top: 120px;
+    margin-bottom: 70px;
+    font-weight: bold;
+}
+  
+table{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+  
+#btn-add1{
+    margin-left: auto;
+    margin-right: auto;
+}
+  
+#btn-add2{
+    margin-left: auto;
+    margin-right: auto;
+}
+  
+.d-flex{
+    margin-top: 10px; 
+    margin-bottom: 30px;
+}
+  
+.form-fld{
+    margin-left: auto;
+    margin-right: auto;
+}
+  
+.tbl-row{
+    text-align: center;
+}
+  
+#table{
+    border-radius: 20px;
+}
+  
+#nama{
+    width:20%;
+}
+  
+#tanggal{
+    width:25%;
+}
+  
+#biaya{
+    width:15%;
+}
+  
+#alamat{
+    width:40%;
+}

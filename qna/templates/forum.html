@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block meta %}
+<header>
+    <link rel="stylesheet" href="{% static 'css/qna.css' %}"/>
+    <div class="cover-qna" >
+    </div>
+</header>
+{% endblock meta %}
+{% block content %}
+
+<br> <br>
+<center>
+    <h3>
+       <b> LETS DISCUSS ABOUT COVID</b>
+    </h3>
+</center>
+
+
+<script>
+    $(document).ready( function () {
+        $('#ptable').DataTable({
+                "iDisplayLength": 4,
+                "ordering" : false,
+                "dom": 'frtp',
+        });
+    });
+</script>
+
+
+
+<div class="container">
+    {%if status == 1 %}
+    <nav class="navbar">
+    <div></div>
+    <a href="{% url 'qna:forum' %}" class="btn btn-qna">Add Question</a>
+    </nav>
+{%endif %}
+
+{%if status == 1 %}
+<div class="container">
+    <section>
+    <table id ="ptable" class="table border-0" >
+        <thead>
+            <th class="table border-0">
+            </th>
+        </thead>
+        <tbody>
+            {%for i in pertanyaan %}
+            <tr>
+                <td>
+                    <div class="card card-qna" style="background-color:#232065;">
+                        <div class=" border-bottom border-light"><b>{{i.penanya}}</b> </div>
+                        <div>{{i.pertanyaan}}</div>
+                        <div class="small">{{i.location}} on {{i.time}}</div>
+                        
+                    <nav class="navbar navbar-inverse">
+                    <div class="nav"></div>
+                    <div class="nav">
+                        <a href="{% url 'qna:balas' komen_id=i.id %}" class="btn btn-qna2">Open</a> 
+                    </div>
+                    </nav>
+                
+                </div>
+                <br>
+                </td>
+            </tr>
+            {%endfor %}
+        </tbody>
+    </table>
+</section>
+</div>
+{% endif %}
+
+
+
+{%if status == 2 %}
+<center>
+    <table>
+    <tr>
+        <td>
+            <div class="form-group container">
+                <div class="card qnabox" style="color: white;">
+                <form method="POST" action="{%url 'qna:forum' %}">
+                    {% csrf_token %}
+                    {{pertanyaan_form.as_p}}
+            </div>
+            <nav class="navbar">
+             <div></div> 
+             <div class="nav navbar "> 
+            <table>
+                <tr>
+                    <td>
+                        <a href="{%url 'qna:lihatPertanyaan'%}" class=" nav navbar btn btn-danger">Back </a>
+                    </td>
+                    <td>
+                        <button class="nav navbar btn btn-qna" type="Submit"> Post </button>
+                    </td>
+                </tr>
+        
+            </table>
+        </div> 
+            </nav>  
+        </form>
+            </div>
+        </td>
+    </tr>
+    </table>
+
+</center>
+
+{% endif %}
+{% endblock content %}

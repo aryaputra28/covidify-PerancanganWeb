@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital@1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;1,400&display=swap');
+.qnabox{
+    background-color: #232065;
+    padding: 1em;
+  }
+  .btn-qna{
+    color: white;
+    background-color: #232065;
+    row-gap: 1em;
+  }
+  .btn-qna:hover{
+    color: white;
+  }
+  .gap-qna{
+    padding-left: 0.5em;
+  }
+  .btn-qna2{
+    background-color: #DCCFEE;
+  }
+  .btn-qna3{
+    background-color: #17A7BF;
+    color: white;
+  }
+  .card-qna{
+    background-color: #232065;
+    padding: 1em;
+    color: white;
+    border-radius: 10px;
+  }
+  .card-komen{
+    background-color: #DCCFEE;
+    padding: 1em;
+    border-radius: 10px;
+  }
+  .cover-qna{
+     background: url("/static/image/qna.png");
+      position: relative;
+      height: 800px;
+      overflow: hidden;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+@media screen and (max-width:760px) {
+  .cover-qna {
+    background: url("/static/image/qna-kecil.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat; 
+}
+}
+
+  
+  
+  
+  
+  

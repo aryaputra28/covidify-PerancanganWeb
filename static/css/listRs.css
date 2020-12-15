@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital@1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;1,400&display=swap');
+
+.cover_tambah{
+    background : url("/static/img/Frame3.png");
+    position: relative;
+    height : 800px;
+    overflow :hidden;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.cover_list{
+    background : url("/static/img/Frame2.png");
+    position: relative;
+    height : 800px;
+    overflow :hidden;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+}
+
+h1{
+    font-family: 'Poppins';
+    font-weight: bold;
+    color: white;
+    position: absolute;
+    left : 30px;
+    top: 350px;
+}
+h2 {
+    font-family: 'Poppins';
+    font-weight: bold;
+}
+
+th {
+    font-family: 'Poppins';
+    font-weight: bold;
+}
+
+@media screen and (max-width: 760px){
+    .cover_tambah{
+        background : url("/static/img/responsive3.png");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        
+    }
+}
+
+@media screen and (max-width: 760px){
+    .cover_list{
+        background : url("/static/img/responsive2.png");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        
+    }
+
+    h1{
+        top:300px;
+    }
+}
+
+table {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    
+}
+
+
+  
+

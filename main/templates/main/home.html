@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block meta %}
+<header> 
+  <link rel="stylesheet" href="{% static 'css/homefeed.css' %}"/>
+  <div class="cover" style="background-image: url(static/image/tst.png);">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-6">
+          <img src="{% static 'image/Group19.png' %}" class="img-fluid" alt="Responsive image" style="width: 10500px;">
+        </div>
+        <div class="col-md-6">
+          <p id="pertama">LET’S HELP  RECOVER THE EARTH</p>
+          <p id="kedua">SAVE YOURSELF, SAVE THE WORLD</p>
+          <p id="ketiga">Coronavirus disease (COVID-19) is an infectious disease caused by a new virus</p>
+          <div class="d-flex justify-content-start">
+            <div class="tombol">
+              <a href="https://www.youtube.com/watch?v=0dAoCfgAQw8" class="btn btn-danger mr-3 btn-lg" >Watch Here</a>
+              <a href="https://www.youtube.com/watch?v=0dAoCfgAQw8" class="btn btn-outline-warning btn-lg">Learn More</a>
+            </div>
+          </div>
+          <div class="d-flex justify-content-start" style="margin-top: 20px;">
+            <div class="card text-center mr-4 " id="kartu" style="width: 18rem; background-color: #4029BB; border-radius: 20px; box-shadow: 3px 6px rgba(0, 0, 0, 0.3);">
+              <div class="card-body">
+                <p id="kelima" >Active</p>
+                <h1 id="keenam">{{ all }}</h1>
+              </div>
+            </div>
+            <div class="card text-center" id="kartu" style="width: 18rem; background-color: #4029BB; border-radius: 20px; box-shadow: 3px 6px rgba(0, 0, 0, 0.3);">
+              <div class="card-body">
+                <p id="kelima">Recovered</p>
+                <b id="ketujuh">{{ recovered }}</b>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+{% endblock meta %}
+
+{% block content %}
+<div class="container">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="row flex-row-reverse">
+        <div class="col-md-6">
+            <img src="{% static 'image/Group38.png' %}" class="img-fluid" alt="Responsive image" >
+        </div>
+        <div class="col-md-6 ">
+          <p id="first">Apa Itu COVID-19?</p>
+          <p id="second">Penyakit yang disebabkan oleh virus severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2).</p>
+        </div>
+      </div>
+        <div class="col-md-6" >
+          <img src="{% static 'image/Group35.png' %}" class="img-fluid" alt="Responsive image" >
+        </div>
+        <div class="col-md-6">
+          <p id="first">Gejala umum Covid19 apa saja?</p>
+          <p id="second">
+            Gejala umumnya demam (suhu tubuh diatas 38°C), batuk kering,
+            dan sesak napas</p>
+        </div>
+        <div class="row flex-row-reverse">
+          <div class="col-md-6" >
+            <img src="{% static 'image/Group46.png' %}" class="img-fluid" alt="Responsive image">
+          </div>
+          <div class="col-md-6" >
+            <p id="first">Apa lagi gejala Covid19 yang lain ?</p>
+            <p id="second">Gejala lainnya mudah lelah, nyeri otot, nyeri dada, sakit tenggorokan, sakit kepala, mual / muntah, diare, hingga hilangnya kemampuan mengecap rasa / mencium bau.</p>
+          </div>
+        </div>
+      <div class="col-md-6" >
+          <img src="{% static 'image/Group36.png' %}" class="img-fluid" alt="Responsive image">
+      </div>
+      <div class="col-md-6">
+        <p id="first">Apakah ada faktor risiko Covid-19?</p>
+        <p id="second">
+          Covid19 dapat menyerang siapa saja, tetapi akan lebih berbahaya/bahkan fatal jika menyerang orang lanjut usia, ibu hamil, perokok, dan orang dengan imun lemah.</p>
+      </div>
+      <div class="row flex-row-reverse" style="margin-bottom: 100px;">
+        <div class="col-md-6">
+            <img src="{% static 'image/Group40.png' %}" class="img-fluid" alt="Responsive image">
+        </div>
+        <div class="col-md-6">
+          <p id="first">Pemeriksaan apa yang harus saya lakukan?</p>
+          <p id="second">Rapid test, Tes PCR (polymerase chain reaction) / swab test, CT Scan, atau tes darah lengkap.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block meta %}
+<header> 
+    <header>
+        <link rel="stylesheet" href="{% static 'css/health_protocol.css' %}"/>
+    </header>
+    <div class="cover_list">
+        <h1>Protokol Kesehatan</h1>
+    </div>
+    <br>
+    <br>
+</header>
+{% endblock meta %}
+
+{% block content %}
+<div class="container">
+    <section>
+        <a href="{% url 'health_protocol:healthProtocol' %}">
+            <button class="nav navbar btn btn-danger" type="button">
+                Back
+            </button>
+        </a>
+        <table id ="ptable" class="table border-0">
+            <thead>
+                <th class="table border-0">
+                </th>
+            </thead>
+            <tbody>
+                {% for i in alternatives %}
+                <tr>
+                    <td>
+                        <div class="card card-alternative">
+                            <h2 style="font-style:italic">"{{i.text}}"</h2>
+                            <p>oleh <span style="font-weight: bold">{{i.username}}</span> | &#128077;{{i.upvotes}} &#128078;{{i.downvotes}}</p>
+                            <nav class="navbar">
+                                <div class="nav">
+                                    <a href="{% url 'health_protocol:upvote' i.id %}">
+                                        <button class="nav navbar btn btn-success" type="button">
+                                            Boleh tuh!
+                                        </button>
+                                    </a>
+                                    <a href="{% url 'health_protocol:downvote' i.id %}">
+                                        <button class="nav navbar btn btn-danger" type="button">
+                                            Skip deh...
+                                        </button>
+                                    </a>
+                                </div>
+                            </nav>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+</div>
+{% endblock content %}

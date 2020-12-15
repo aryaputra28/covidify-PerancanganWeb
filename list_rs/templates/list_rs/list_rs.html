@@ -1,0 +1,91 @@
+{% extends 'base.html'%}
+{% load static %}
+
+
+{% block content %}
+<header>
+    <link rel="stylesheet" href="{% static 'css/listRs.css' %}"/>
+</header>
+<div class = "cover_list">
+    <h1>Daftar Rumah Sakit</h1>
+</div>
+<br>
+<br>
+
+<script>
+    $(document).ready( function () {
+        $('#list_rs').DataTable({
+            "aLengthMenu":[[3, 5, 10, 25], [3, 5, 10, 25]],
+                "iDisplayLength":3,
+                "ordering" : false
+
+        });
+    } );
+</script>
+
+<section> 
+    <div class="container-fluid">
+        <div class = "row">
+            <div class="col-sm-12">
+                <h2 class="text-center"> DAFTAR RUMAH SAKIT </h2>
+                <br>
+                <br>
+                <div class="table-responsive-md">
+                    <table id="list_rs" class="table table-striped">
+
+                        <thead style="background-color:#222159;">
+                        <tr style="color:#FFFFFF">
+                        <th scope="col">Provinsi</th>
+                        <th scope="col">Nama RS</th>
+                        <th scope="col">Alamat</th>
+                        <th scope="col">No. Telepon</th>
+                        <th scope="col">Website</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+
+                            {% for data in ListRs %} <!--ListMatkul dapet dari salah satu def di views-->
+                            
+                            <tr>
+                                <td>
+                                    {{data.provinsi}}
+                                </td>
+
+                                <td>
+                                    {{data.nama_rs}}
+                                </td>
+
+                                <td>
+                                    <div class="accordion" id="accordionExample">
+                                        {{data.alamat}}
+                                    </div>
+                                </td>
+
+                                <td>
+                                    {{data.telepon}}
+                                </td>
+
+                                <td> 
+                                    <a class="btn btn-primary" style = "background-color:#DCCFEE"
+                                    href= "{{data.website}}" target= '_blank' role="button">Website</a>
+                                </td>
+
+                            </tr>
+
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                <div class= "container-fluid text-right" style="margin-bottom: 100px;">
+                <a class="btn btn-primary btn-lg" 
+                    style= "background-color: #232065"
+                    href="{% url 'list_rs:tambahRS'  %}" 
+                    role="button">Add</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

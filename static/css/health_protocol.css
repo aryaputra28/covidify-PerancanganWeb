@@ -1,0 +1,202 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital@1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;1,400&display=swap');
+
+body {
+  font-family: 'Poppins';
+}
+
+h1{
+    font-family: 'Poppins';
+    font-weight: bold;
+    color: white;
+    position: absolute;
+    left : 30px;
+    top: 350px;
+}
+
+.cover {
+    position: relative;
+    height: 1000px;
+    overflow: hidden;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+.col-md-6 {
+    margin-bottom:auto; 
+    margin-top: auto;
+}
+
+#pertama {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 70px;
+    line-height: 80px;
+    color: #F8F5F5;
+}
+
+#kedua {
+    font-family: Poppins;
+    font-style: italic;
+    font-weight: 300px;
+    font-size: 50px;
+    line-height: 55px;
+    color: #F4D051;
+}
+
+#ketiga {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 25px;
+    line-height: 37px;
+    color: #FFFFFF;
+}
+#kelima {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 36px;
+    text-align: left;
+    color: #FFFFFF;
+}
+
+#keenam {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 57px;
+    line-height: 85px;
+    color: #F4D051;
+}
+
+#ketujuh {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 57px;
+    line-height: 85px;
+    color: #28DFFF;
+}
+
+#first {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 41px;
+    line-height: 48px;
+    color: #000000;
+}
+
+#second {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 30px;
+    line-height: 48px;
+    color: #000000;
+}
+
+@media screen and (max-width:870px) {
+    #pertama {
+        font-size: 45px;
+        line-height: 50px;
+    }
+    #kedua {
+        font-size: 40px;
+        line-height: 40px;
+    }
+    #ketiga {
+        font-size: 25px;
+    }
+}
+
+.cover_list {
+    background : url("/static/image/Frame 6.png");
+    position: relative;
+    height : 800px;
+    overflow :hidden;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.card-alternative{
+    background-color: #232065;
+    padding: 1em;
+    color: white;
+    border-radius: 10px;
+  }
+.alternativebox{
+    color: white;
+    background-color: #232065;
+    padding: 1em;
+  }
+  .btn-healthprotocol{
+    color: white;
+    background-color: #232065;
+    row-gap: 1em;
+    align-items: center;
+  }
+  .btn-post{
+    color: white;
+    background-color: #232065;
+    row-gap: 1em;
+  }
+
+@media screen and (max-width:760px) {
+    .cover_list {
+        background: url("/static/image/Frame13.png");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat; 
+    }
+    .cover {
+        height: 1300px;
+    }
+    #pertama {
+        font-size: 40px;
+        text-align: center;
+        line-height: 50px;
+    }
+    #kedua {
+        font-size: 35px;
+        line-height: 40px;
+        text-align: center;
+    }
+    #ketiga {
+        font-size: 24px;
+        text-align: center;
+    }
+
+    .tombol {
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 10px;
+    }
+    #kartu {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #first {
+        margin-top: 20px;
+        text-align: center;
+        font-size: 35px;
+    }
+
+    #second {
+        font-size: 25px;
+        text-align: center;
+    }
+
+    #gambar {
+        width: 400px;
+        /* margin-left: auto;
+        margin-right: auto; */
+    }
+
+}
