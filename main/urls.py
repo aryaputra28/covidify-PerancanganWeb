@@ -7,5 +7,7 @@ app_name = 'main'
 urlpatterns = [
     path('', views.home, name='home'),
     path('feedbacks',views.listFeedback, name='feedbacklist'),
-    path('formFeedback',views.formFeedback, name='feedbackform')
+    path('formFeedback',views.formFeedback, name='feedbackform'),
+    path('signup/', views.signUp, name='signup'),
+    path('login/', views.login_view, name='login')   
 ]

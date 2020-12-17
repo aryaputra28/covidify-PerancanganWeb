@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+{% endblock meta %}
+  
+{% block content %}
+
+<form method="POST" action="">
+    {% csrf_token %}
+    {{form}}
+
+</form>
+<p>
+    Have account already? <a href="{% url 'main:login' %}"><strong>Log in</strong></a>
+</p>
+{% endblock content %}

@@ -1,9 +1,13 @@
 from django.shortcuts import render,get_object_or_404, redirect
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, HttpResponseRedirect
 import requests
 import json
 from .models import *
 from .forms import *
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
+from .forms import LoginForm, SignUpForm
+from django.contrib.auth import authenticate, login, logout 
 
 def home(request):
     url = "https://covid-193.p.rapidapi.com/statistics"
@@ -39,8 +43,28 @@ def listFeedback(request):
     return render (request,'main/feedbackList.html',{'feedbacks':feedbacks})
 
 def signUp(request):
-    return redirect
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return HttpResponseRedirect('/login')
+
+        else:
+            for msg in form.error_messages:
+                messages.error(request, 'Invalid entry')
+
+    else:
+        form = SignUpForm()
+
+    context = {
+        'form' : form
+    }
+
+    return render(request, "main/signup.html", context)
+    
 def login_view(request):
-    return redirect
+    return render(request, 'main/login.html')
 def logout_view(request):
     return redirect
