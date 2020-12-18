@@ -3,6 +3,8 @@ from django.urls import resolve, reverse
 from .views import *
 from .models import *
 from .forms import *
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 # Create your tests here.
 class TestModel(TestCase):
@@ -23,11 +25,11 @@ class TestForm(TestCase):
 class TestURL(TestCase):
     def test_if_health_protocol_url_exists(self):
         response = Client().get('/health_protocol/')
-        self.assertEquals(response.status_code, 200)
+        self.assertEquals(response.status_code, 302)
 
     def test_if_alternatives_url_exists(self):
         response = Client().get('/alternatives/')
-        self.assertEquals(response.status_code, 200)
+        self.assertEquals(response.status_code, 302)
 
 class TestFunc(TestCase):
     def test_health_protocol_url_using_func(self):
@@ -39,10 +41,15 @@ class TestFunc(TestCase):
         self.assertEqual(found.func, alternatives)
 
 class TestView(TestCase):
+    def setUp(self):
+        self.user = authenticate(username='resonance', password='nctresonance2020')
+
     def test_if_health_protocol_template_exists_on_the_page(self):
-        response = Client().get('/health_protocol/')
-        self.assertTemplateUsed(response, 'health_protocol/index.html')
+        if self.user is not None:
+            response = Client().get('/health_protocol/')
+            self.assertTemplateUsed(response, 'health_protocol/index.html')
 
     def test_if_alternatives_template_exists_on_the_page(self):
-        response = Client().get('/alternatives/')
-        self.assertTemplateUsed(response, 'health_protocol/alternatives.html')
+        if self.user is not None:
+            response = Client().get('/alternatives/')
+            self.assertTemplateUsed(response, 'health_protocol/alternatives.html')

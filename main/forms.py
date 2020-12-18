@@ -12,7 +12,70 @@ class FeedbackForm(forms.ModelForm):
         fields = '__all__'
     
 class SignUpForm(UserCreationForm):
-    ""
+    username = forms.CharField(
+        label="Username",
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'type' : 'text',
+                'placeholder': 'Enter your username',
+                'name': 'username',
+            }
+        ),
+        max_length=16
+    )
+
+    email = forms.EmailField(
+        label="Email",
+        widget=forms.EmailInput(
+            attrs={
+                'class': 'form-control',
+                'type' : 'email',
+                'placeholder': 'Enter your email',
+                'name': 'email',
+            }
+        )
+    )
+
+    password1 = forms.CharField(
+        label="Password",
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'form-control',
+                'type' : 'password',
+                'placeholder': 'Enter your password',
+                'name': 'password',
+            }
+        )
+    )
+
+    password2 = forms.CharField(
+        label="Password Confirmation",
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'form-control',
+                'type' : 'password',
+                'placeholder': 'Confirm your password',
+                'name': 'password',
+            }
+        )
+    )
 
 class LoginForm(AuthenticationForm):
-    ""
+    username = forms.CharField(label="Username", 
+    widget=forms.TextInput(
+        attrs={
+        'class' : 'form-control',
+        'placeholder' : 'Username',
+        'type' : 'text',
+        'name': 'username',
+    }))
+
+    password = forms.CharField(label="Password", 
+    widget=forms.PasswordInput(
+        attrs={
+        'class' : 'form-control',
+        'placeholder' : 'Password',
+        'type' : 'password',
+        'name': 'password',
+    }))

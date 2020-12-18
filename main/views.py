@@ -6,8 +6,9 @@ from .models import *
 from .forms import *
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
-from .forms import LoginForm, SignUpForm
-from django.contrib.auth import authenticate, login, logout 
+# from .forms import LoginForm, SignUpForm
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 def home(request):
     url = "https://covid-193.p.rapidapi.com/statistics"
@@ -65,6 +66,39 @@ def signUp(request):
     return render(request, "main/signup.html", context)
     
 def login_view(request):
-    return render(request, 'main/login.html')
+    if request.method == 'POST':
+        valuenext = request.POST.get('next')
+        form = LoginForm(data = request.POST)
+
+        if form.is_valid():
+            usernameInput = request.POST["username"]
+            passwordInput = request.POST["password"]
+
+            user = authenticate(request, username=usernameInput, password=passwordInput)
+
+            if user is not None and valuenext == "":
+                login(request, user)
+                return redirect('main:login')
+            if user is not None and valuenext != "":
+                login(request, user)
+                return redirect(valuenext)
+        else:
+            messages.error(request, 'Invalid entry')
+
+    else:
+        form = LoginForm()
+
+    context = {
+        'form' : form,
+    }
+
+    return render(request, 'main/login.html', context)
+
+@login_required
 def logout_view(request):
-    return redirect
+    logout(request)
+    form = LoginForm()
+    response = {
+        'form' : form,
+    }
+    return redirect('main:login')
