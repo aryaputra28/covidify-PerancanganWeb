@@ -1,16 +1,9 @@
-# from django.test import LiveServerTestCase, TestCase, tag
-# from django.urls import reverse
 # from selenium import webdriver
 
-
-from django.test import LiveServerTestCase, TestCase, tag
-from django.urls import reverse
-from django.test import TestCase
-from django.test import Client
+from django.test import LiveServerTestCase, TestCase, tag, Client
 from django.urls import resolve, reverse
 from django.http import HttpRequest, response
-from main.models import *
-#import main.views
+from .models import *
 from .views import signUp, login_view, logout_view
 from .forms import SignUpForm, LoginForm
 
@@ -106,8 +99,8 @@ class DetailTest(TestCase):
 class ViewsTest(TestCase):
     def setUp(self):
         self.client = Client()
-        self.login = reverse("login")
-        self.signup = reverse("signup")
+        self.login = reverse("main:login")
+        self.signup = reverse("main:signup")
     
     def test_POST_login_valid(self):
         response = self.client.post(self.login,
@@ -144,11 +137,6 @@ class ViewsTest(TestCase):
                                         'password2': 'test123',
                                     }, follow=True)
         self.assertTemplateUsed(response, 'main/signup.html')
-
-
-    
-
-
 
 # @tag('functional')
 # class FunctionalTestCase(LiveServerTestCase):

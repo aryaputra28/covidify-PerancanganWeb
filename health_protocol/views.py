@@ -2,8 +2,11 @@ from django.shortcuts import render, redirect
 from .models import *
 from .forms import AlternativesForm
 from django.contrib import messages
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+@login_required(login_url="main:login")
 def index(request):
     if request.method == "POST":
         input_form = AlternativesForm(request.POST)
@@ -30,16 +33,19 @@ def index(request):
         }
         return render(request, 'health_protocol/index.html', context)
 
+@login_required(login_url="main:login")
 def alternatives(request):
     alternatives = Alternatives.objects.all()
     return render(request, 'health_protocol/alternatives.html', {'alternatives':alternatives})
 
+@login_required(login_url="main:login")
 def upvote(request, pk):
     alternatives = Alternatives.objects.get(id=pk)
     alternatives.upvotes += 1
     alternatives.save()
     return redirect('health_protocol:alternatives')
 
+@login_required(login_url="main:login")
 def downvote(request, pk):
     alternatives = Alternatives.objects.get(id=pk)
     alternatives.downvotes += 1

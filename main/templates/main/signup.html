@@ -3,15 +3,37 @@
 
 {% block meta %}
 {% endblock meta %}
-  
-{% block content %}
 
-<form method="POST" action="">
+{% block content %}
+<div class="container-fluid">
+    <div class = "row">
+        <div class="col-sm-12">
+            <h2 class="text-center"> Sign-Up Your Account </h2>
+            <br>
+            <br>
+            <form class=" align-self-center" action="" method="POST">
+                {% csrf_token %}
+                {{ form }}
+                <br>
+                <button style= "background-color: #232065" type="submit" class="btn btn-primary btn-lg">Sign Up</button>
+            </form>
+
+            <div class="info mt-5">
+                <p>
+                    Have account already? <a class="sign-up-in-link" href="{% url 'main:login' %}"><strong>Log in.</strong></a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- <form method="POST" action="">
     {% csrf_token %}
     {{form}}
 
 </form>
 <p>
     Have account already? <a href="{% url 'main:login' %}"><strong>Log in</strong></a>
-</p>
+</p> -->
 {% endblock content %}
