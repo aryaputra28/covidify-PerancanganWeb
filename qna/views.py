@@ -2,13 +2,25 @@ from django.shortcuts import render, redirect
 from .models import *
 from .forms import *
 from django.http.response import HttpResponseRedirect
+from main.models import Pengguna
+from django.contrib.auth.models import User
 
 def forum(request):
     pertanyaan_form = pertanyaanForm(request.POST or None)
+    objectPengguna = request.user
+    penggunaModel = Pengguna.objects.get(akun=objectPengguna)
+    listpertanyaan = pertanyaan.objects.all()
     if request.method == 'POST':
         if pertanyaan_form.is_valid():
-            pertanyaan_form.save()
-            listpertanyaan = pertanyaan.objects.all()
+            print(objectPengguna.email)
+            print("Sss")
+            listpertanyaan.create(
+                penanya = penggunaModel.namalengkap,
+                location = penggunaModel.lokasi,
+                pertanyaan = pertanyaan_form.cleaned_data.get('pertanyaan'),
+                email = objectPengguna.email
+            )
+            
             context ={
                 'status':1, 'pertanyaan':listpertanyaan
             }
@@ -17,7 +29,9 @@ def forum(request):
 
     context ={
             'page_title':'Forum Keluarga',
-            'pertanyaan_form':pertanyaan_form, 'status':2
+            'pertanyaan_form':pertanyaan_form, 
+            'status':2,
+            'pengguna':penggunaModel
     }
     return render(request,'forum.html',context)
     
@@ -45,12 +59,15 @@ def balas(request,komen_id):
         'form_balasan' : balasan_form, 'count':b
     }
     if request.method == 'POST' :
+        objectPengguna = request.user
+        penggunaModel = Pengguna.objects.get(akun=objectPengguna)
         if balasan_form.is_valid():
             balasan.create(
-                pengomentar = balasan_form.cleaned_data.get('pengomentar'),
+                pengomentar = penggunaModel.namalengkap,
                 komen = balasan_form.cleaned_data.get('komen'),
-                location =  balasan_form.cleaned_data.get('location'),
-                tanya = listPertanyaan
+                location =  penggunaModel.lokasi,
+                tanya = listPertanyaan,
+                email = objectPengguna.email
             )
             return redirect('qna:balas', komen_id=komen_id)
             

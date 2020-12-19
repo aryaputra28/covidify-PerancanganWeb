@@ -35,9 +35,15 @@
     {%if status == 1 %}
     <nav class="navbar">
     <div></div>
+    {%if user.is_authenticated == True %}
     <a href="{% url 'qna:forum' %}" class="btn btn-qna">Add Question</a>
+    {%else %}
+    <a href="{% url 'main:login' %}" class="btn btn-qna"  onClick="alert('Anda belum login, silahkan login terlebih dahulu')">Add Question</a>
+    
+    {%endif %}
+   
     </nav>
-{%endif %}
+    {%endif %}
 
 {%if status == 1 %}
 <div class="container">
@@ -54,7 +60,7 @@
                     <div class="card card-qna" style="background-color:#232065;">
                         <div class=" border-bottom border-light"><b>{{i.penanya}}</b> </div>
                         <div>{{i.pertanyaan}}</div>
-                        <div class="small">{{i.location}} on {{i.time}}</div>
+                        <div class="small">{{i.location}} on {{i.time}} | {{i.email}}</div>
                         
                     <nav class="navbar navbar-inverse">
                     <div class="nav"></div>
@@ -77,14 +83,17 @@
 
 
 {%if status == 2 %}
+
 <center>
     <table>
     <tr>
         <td>
             <div class="form-group container">
                 <div class="card qnabox" style="color: white;">
+                   
                 <form method="POST" action="{%url 'qna:forum' %}">
                     {% csrf_token %}
+                    Your Question :
                     {{pertanyaan_form.as_p}}
             </div>
             <nav class="navbar">

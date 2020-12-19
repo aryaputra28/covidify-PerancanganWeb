@@ -46,9 +46,18 @@ def listFeedback(request):
 def signUp(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
+        form2 = PenggunaForm(request.POST)
+        userModel = Pengguna.objects.all()
 
-        if form.is_valid():
+        if form.is_valid() and form2.is_valid():
             user = form.save()
+            userModel.create(
+                namalengkap = form2.cleaned_data.get('namalengkap'),
+                lokasi = form2.cleaned_data.get('lokasi'),
+                institusi = form2.cleaned_data.get('institusi'),
+                pekerjaan = form2.cleaned_data.get('pekerjaan'),
+                akun = user
+            )
             login(request, user)
             return HttpResponseRedirect('/login')
 
@@ -58,9 +67,10 @@ def signUp(request):
 
     else:
         form = SignUpForm()
+        form2 = PenggunaForm()
 
     context = {
-        'form' : form
+        'form' : form,'form2':form2
     }
 
     return render(request, "main/signup.html", context)

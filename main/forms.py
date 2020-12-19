@@ -1,5 +1,5 @@
 from django import forms
-from .models import Feedback
+from .models import *
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
@@ -12,33 +12,8 @@ class FeedbackForm(forms.ModelForm):
         fields = '__all__'
     
 class SignUpForm(UserCreationForm):
-    username = forms.CharField(
-        label="Username",
-        widget=forms.TextInput(
-            attrs={
-                'class': 'form-control',
-                'type' : 'text',
-                'placeholder': 'Enter your username',
-                'name': 'username',
-            }
-        ),
-        max_length=16
-    )
-
-    email = forms.EmailField(
-        label="Email",
-        widget=forms.EmailInput(
-            attrs={
-                'class': 'form-control',
-                'type' : 'email',
-                'placeholder': 'Enter your email',
-                'name': 'email',
-            }
-        )
-    )
-
     password1 = forms.CharField(
-        label="Password",
+        label="Password :",
         widget=forms.PasswordInput(
             attrs={
                 'class': 'form-control',
@@ -48,9 +23,8 @@ class SignUpForm(UserCreationForm):
             }
         )
     )
-
     password2 = forms.CharField(
-        label="Password Confirmation",
+        label="Password Confirmation :",
         widget=forms.PasswordInput(
             attrs={
                 'class': 'form-control',
@@ -60,6 +34,35 @@ class SignUpForm(UserCreationForm):
             }
         )
     )
+    class Meta :
+        model = User
+        fields= ("email",'username')
+        labels ={'username':'Username :','email':'Email :',}
+        widgets ={
+            'username': forms.TextInput(attrs={'class':'form-control','placeholder': "Enter your username here",  "autocomplete":"off"}),
+            'email': forms.TextInput(attrs={'class':'form-control','placeholder': "Enter your email here",  "autocomplete":"off"}),
+        }
+        help_texts = {
+            "username":None,
+        }
+
+
+    
+    
+    
+    
+
+class PenggunaForm(forms.ModelForm):
+    class Meta :
+        model = Pengguna
+        fields =['namalengkap','lokasi','institusi','pekerjaan']
+        labels = {'lokasi':'Lokasi :','institusi':'Institusi :','pekerjaan':'Pekerjaan :','namalengkap':"Nama Lengkap :"}
+        widgets ={
+            'lokasi': forms.TextInput(attrs={'class':'form-control','placeholder': "Enter your location here"}),
+            'institusi': forms.TextInput(attrs={'class':'form-control','placeholder': "Enter your Instution here"}),
+            'pekerjaan': forms.TextInput(attrs={'class':'form-control','placeholder': "Enter your Work here"}),
+            'namalengkap': forms.TextInput(attrs={'class':'form-control','placeholder': "Enter your Full Name here"})}
+
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(label="Username", 

@@ -7,6 +7,7 @@ class pertanyaan(models.Model):
     pertanyaan = models.TextField(max_length=800)
     location = models.TextField(max_length=400,default="Depok")
     time = models.DateTimeField(default=timezone.now)
+    email = models.EmailField(default="gilangcaturyudistira@gmail.com")
     
     def __str__(self):
         return "{} | {} ".format(self.penanya,self.pertanyaan)
@@ -17,6 +18,7 @@ class komentar(models.Model):
     tanya = models.ForeignKey(pertanyaan, on_delete = models.CASCADE)
     time = models.DateTimeField(default=timezone.now)
     location = models.TextField(max_length=400, default="Depok")
+    email = models.EmailField(default="gilang.catur@ui.ac.id")
 
     def __str__(self):
         return "{} | {} | {} ".format(self.tanya.pertanyaan,self.pengomentar,self.komen)
