@@ -8,12 +8,10 @@ from django.contrib.auth.models import User
 def forum(request):
     pertanyaan_form = pertanyaanForm(request.POST or None)
     objectPengguna = request.user
-    penggunaModel = Pengguna.objects.get(akun=objectPengguna)
     listpertanyaan = pertanyaan.objects.all()
     if request.method == 'POST':
         if pertanyaan_form.is_valid():
-            print(objectPengguna.email)
-            print("Sss")
+            penggunaModel = Pengguna.objects.get(akun=objectPengguna)
             listpertanyaan.create(
                 penanya = penggunaModel.namalengkap,
                 location = penggunaModel.lokasi,
@@ -31,7 +29,6 @@ def forum(request):
             'page_title':'Forum Keluarga',
             'pertanyaan_form':pertanyaan_form, 
             'status':2,
-            'pengguna':penggunaModel
     }
     return render(request,'forum.html',context)
     
