@@ -78,12 +78,22 @@
                     </table>
                 </div>
                 <br>
+                {%if user.is_authenticated == True %}
                 <div class= "container-fluid text-right" style="margin-bottom: 100px;">
                 <a class="btn btn-primary btn-lg" 
                     style= "background-color: #232065"
                     href="{% url 'list_rs:tambahRS'  %}" 
                     role="button">Add</a>
                 </div>
+                {%else %}
+                <div class= "container-fluid text-right" style="margin-bottom: 100px;">
+                <a class="btn btn-primary btn-lg"
+                    onClick="alert('Anda belum login, silahkan login terlebih dahulu')"
+                    style= "background-color: #232065"
+                    href="{% url 'main:login'  %}" 
+                    role="button">Add</a>
+                </div>
+                {%endif %}
             </div>
         </div>
     </div>
