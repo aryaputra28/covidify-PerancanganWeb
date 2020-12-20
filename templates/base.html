@@ -43,17 +43,26 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'main:feedbacklist' %}" style="color: white;">Feedback</a>
         </li>
-        {% if user.is_authenticated == False %}
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'main:login' %}" style="color: white;">Login</a>
-        </li>
-        {% else %}
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'main:logout' %}" style="color: white;">Logout</a>
-        </li>
-        {% endif %}
+      </div>
+        <ul class="navbar-nav">
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a style="color: white; font-weight: bold;" class="nav-link" href="/">Hello, {{request.user}}</a></li>
+          </li>
+         
+          <li class="nav-item">
+            <a style="color: white; font-weight: bold;" class="nav-link" href="{% url 'main:logout' %}">Logout</a></li>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a style="color: white; font-weight: bold;" class="nav-link" href="{% url 'main:login' %}">Login</a></li>
+          </li>
+          <li class="nav-item">
+            <a style="color: white; font-weight: bold;" class="nav-link" href="{% url 'main:signup' %}">Register</a></li>
+          </li>
+          {% endif %}
+        </ul>
       </ul>
-    </div>
 </nav>
 {% block meta %}
 

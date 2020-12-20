@@ -16,15 +16,15 @@ class DetailTest(TestCase):
 
     def test_main_url_is_exist (self) :
         response = Client().get('/feedbacks')
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
         response = Client().get('/')
         self.assertEqual(response.status_code, 200)
 
     def test_main_penggunaan_templateFeedback(self):
         feedback = Feedback.objects.create(nama="arya",feedbackUser="Kreen sekali")
        
-        response = Client().get('/feedbacks')
-        self.assertTemplateUsed(response,"main/feedbackList.html")
+        response = Client().get('/formFeedback')
+        self.assertTemplateUsed(response,"main/feedbackForm.html")
 
     def test_main_penggunaan_templateIndex(self):
         response = Client().get('/')
