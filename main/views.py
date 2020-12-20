@@ -38,7 +38,8 @@ def formFeedback(request):
         'form' : form,
     }
     return render(request, 'main/feedbackForm.html',context)
-
+    
+@login_required(login_url="main:login")
 def listFeedback(request):
     feedbacks = Feedback.objects.all()
     return render (request,'main/feedbackList.html',{'feedbacks':feedbacks})
@@ -88,10 +89,10 @@ def login_view(request):
 
             if user is not None and valuenext == "":
                 login(request, user)
-                return redirect('main:login')
+                return redirect('/')
             if user is not None and valuenext != "":
                 login(request, user)
-                return redirect(valuenext)
+                return redirect("/")
         else:
             messages.error(request, 'Invalid entry')
 
