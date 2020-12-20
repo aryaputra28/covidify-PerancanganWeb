@@ -53,12 +53,19 @@
       </div>
     
       <!-- Tombol Add yang me-refer ke halaman form -->
+      {% if user.is_authenticated == True %}
       <div class="d-flex justify-content-end" id="btn-add1">
         <a href="{% url 'rapidTest:form' %}">
           <button type="button" class="btn btn-light btn-lg" style="background-color: #DF6357;color: white;">Add</button>
         </a>
-    </div>
-
+      </div>
+      {% else %}
+      <div class="d-flex justify-content-end" id="btn-add1">
+        <a onClick="alert('Anda belum login, silahkan login terlebih dahulu')" href="{% url 'main:login'  %}">
+          <button type="button" class="btn btn-light btn-lg" style="background-color: #DF6357;color: white;">Add</button>
+        </a>
+      </div>
+      {% endif %}
     </div>                        
   </div>
 
