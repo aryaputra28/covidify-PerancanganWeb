@@ -1,7 +1,5 @@
 [![pipeline status](https://gitlab.com/gilangcy/tugas-kelompok-2-ppw/badges/master/pipeline.svg)](https://gitlab.com/gilangcy/tugas-kelompok-2-ppw/-/commits/master)
-
 [![coverage report](https://gitlab.com/gilangcy/tugas-kelompok-2-ppw/badges/master/coverage.svg)](https://gitlab.com/gilangcy/tugas-kelompok-2-ppw/-/commits/master)
-
 
 Tugas Kelompok 2
 Kelompok A03 
