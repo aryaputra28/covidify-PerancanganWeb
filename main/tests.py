@@ -16,7 +16,7 @@ class DetailTest(TestCase):
 
     def test_main_url_is_exist (self) :
         response = Client().get('/feedbacks')
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 200)
         response = Client().get('/')
         self.assertEqual(response.status_code, 200)
 

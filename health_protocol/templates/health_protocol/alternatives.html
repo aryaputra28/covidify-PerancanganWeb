@@ -27,24 +27,57 @@
                 </th>
             </thead>
             <tbody>
-                {% for i in alternatives %}
+                {% for alternative in alternatives %}
                 <tr>
                     <td>
                         <div class="card card-alternative">
-                            <h2 style="font-style:italic">"{{i.text}}"</h2>
-                            <p>oleh <span style="font-weight: bold">{{i.username}}</span> | &#128077;{{i.upvotes}} &#128078;{{i.downvotes}}</p>
+                            <h2 style="font-style:italic">"{{alternative.text}}"</h2>
+                            <p>oleh <span style="font-weight: bold">{{alternative.pengguna.namalengkap}}</span> | {{alternative.pub_date}} | &#128077;{{alternative.upvotes}} &#128078;{{alternative.downvotes}}</p>
+                            <!-- <a href="#" onClick="document.getElementById('likebutton').submit()">
+                                <button class="nav navbar btn btn-success" type="button">
+                                    Boleh tuh!
+                                </button>
+                            </a>
+                            <a href="#" onClick="document.getElementById('dislikebutton').submit()">
+                                <button class="nav navbar btn btn-danger" type="button">
+                                    Skip deh...
+                                </button>
+                            </a>
+                            <form id="likebutton" method="POST" action="/alternatives/{{alternative.id}}/preference/1">
+                                {% csrf_token %}
+                                <input type="hidden">
+                            </form>
+                            <form id="dislikebutton" method="POST" action="/alternatives/{{alternative.id}}/preference/2">
+                                {% csrf_token %}
+                                <input type="hidden">
+                            </form> -->
+
+
                             <nav class="navbar">
                                 <div class="nav">
-                                    <a href="{% url 'health_protocol:upvote' i.id %}">
+                                    {% if user.is_authenticated %}
+                                    <a href="{% url 'health_protocol:preference' alt_id=alternative.id userpreference='1' %}">
                                         <button class="nav navbar btn btn-success" type="button">
                                             Boleh tuh!
                                         </button>
                                     </a>
-                                    <a href="{% url 'health_protocol:downvote' i.id %}">
+                                    <a href="{% url 'health_protocol:preference' alt_id=alternative.id userpreference='2' %}">
                                         <button class="nav navbar btn btn-danger" type="button">
                                             Skip deh...
                                         </button>
                                     </a>
+                                    {% else %}
+                                    <a href="{% url 'health_protocol:preference' alt_id=alternative.id userpreference='1' %}" onClick="alert('Anda belum login, silakan login terlebih dahulu')">
+                                        <button class="nav navbar btn btn-success" type="button">
+                                            Boleh tuh!
+                                        </button>
+                                    </a>
+                                    <a href="{% url 'health_protocol:preference' alt_id=alternative.id userpreference='2' %}" onClick="alert('Anda belum login, silakan login terlebih dahulu')">
+                                        <button class="nav navbar btn btn-danger" type="button">
+                                            Skip deh...
+                                        </button>
+                                    </a>
+                                    {% endif %}
                                 </div>
                             </nav>
                         </div>
