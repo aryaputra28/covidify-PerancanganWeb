@@ -12,7 +12,7 @@ class Alternatives(models.Model):
     downvotes = models.PositiveIntegerField(default=0)
 
     def __str__(self):
-        return "Nama: {} | Text: {} | Upvotes: {} | Downvotes: {}".format(self.pengguna.namalengkap, self.text, self.upvotes, self.downvotes)
+        return "{} | Text: {} | Upvotes: {} | Downvotes: {}".format(self.pengguna, self.text, self.upvotes, self.downvotes)
 
 class Preference(models.Model):
     pengguna = models.ForeignKey(Pengguna, on_delete=models.CASCADE, null=True)
