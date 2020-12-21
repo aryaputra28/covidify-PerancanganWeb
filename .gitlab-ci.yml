@@ -32,7 +32,9 @@ UnitTest:
   <<: *coverage_artifacts
   stage: test
   before_script:
-    - *django_before_script
+    - python manage.py makemigrations
+    - python manage.py migrate
+    - python manage.py collectstatic --no-input
   script:
     - coverage run --parallel --include="./*" --omit="manage.py,covidify/*"
       manage.py test --exclude-tag=functional
