@@ -5,7 +5,7 @@ from django.utils import timezone
 
 # Create your models here.
 class Alternatives(models.Model):
-    pengguna = models.ForeignKey(Pengguna, on_delete=models.CASCADE, null=True)
+    pengguna = models.ForeignKey(Pengguna, on_delete=models.CASCADE, default=None)
     text = models.CharField(max_length=150)
     pub_date = models.DateTimeField(default=timezone.now)
     upvotes = models.PositiveIntegerField(default=0)
@@ -15,8 +15,8 @@ class Alternatives(models.Model):
         return "{} | Text: {} | Upvotes: {} | Downvotes: {}".format(self.pengguna, self.text, self.upvotes, self.downvotes)
 
 class Preference(models.Model):
-    pengguna = models.ForeignKey(Pengguna, on_delete=models.CASCADE, null=True)
-    alternatives = models.ForeignKey(Alternatives, on_delete=models.CASCADE, null=True)
+    pengguna = models.ForeignKey(Pengguna, on_delete=models.CASCADE, default=None)
+    alternatives = models.ForeignKey(Alternatives, on_delete=models.CASCADE, default=None)
 
     # value: 1 = like, 2 = dislike
     value = models.IntegerField(default=0)
