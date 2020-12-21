@@ -25,6 +25,6 @@ class Preference(models.Model):
     def __str__(self):
         return str(self.pengguna) + ' | ' + str(self.alternatives) + ' | Values: ' + str(self.value)
 
-    class Meta:
-        unique_together = ("pengguna", "alternatives", "value")
+    # class Meta:
+    #     unique_together = ("pengguna", "alternatives", "value")
 
