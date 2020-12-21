@@ -9,13 +9,13 @@
 <div class="container-fluid">
     <div class = "row">
         <div class="col-sm-12">
-            <h2 class="text-center" style="margin-top: 20px;"><b> Hey, Let's Login First! </b></h2>
+            <h2 class="text-center" style="margin-top: 20px;"><b>Let's Log In First, Shall We?</b></h2>
             <br>
             <br>
             <div class="col d-flex justify-content-center ">
                 <div class="card " style="width: 50rem;">
                     <div class="card-header" style="background-color: #232065;">
-                        <p style="text-align: center; font-weight: bolder; color: white; font-size: larger;">LOG - IN</p>
+                        <p style="text-align: center; font-weight: bolder; color: white; font-size: larger;">LOG IN</p>
                     </div>
                     <div class="card-body">
                         <form class="align-self-center" action="" method="POST">
@@ -26,7 +26,7 @@
                             <button style= "background-color: #232065" type="submit" class="btn btn-primary btn-m">Login</button>
                         </form>
                         <p style="margin-top: 10px;">
-                            Don't have an account? <a class="sign-up-in-link" href="{% url 'main:signup' %}"><strong>Sign up.</strong></a>
+                            Don't have an account yet? <a class="sign-up-in-link" href="{% url 'main:signup' %}"><strong>Sign up.</strong></a>
                         </p>
                     </div>
                 </div>
@@ -34,6 +34,5 @@
         </div>
     </div>
 </div>
-
 
 {% endblock content %}

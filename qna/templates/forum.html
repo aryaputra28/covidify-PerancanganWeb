@@ -38,7 +38,7 @@
     {%if user.is_authenticated == True %}
     <a href="{% url 'qna:forum' %}" class="btn btn-qna">Add Question</a>
     {%else %}
-    <a href="{% url 'main:login' %}" class="btn btn-qna"  onClick="alert('Anda belum login, silahkan login terlebih dahulu')">Add Question</a>
+    <a href="{% url 'main:login' %}" class="btn btn-qna"  onClick="alert('Anda belum login, silakan login terlebih dahulu')">Add Question</a>
     
     {%endif %}
    

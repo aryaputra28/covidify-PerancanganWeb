@@ -5,15 +5,15 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 
 class FeedbackForm(forms.ModelForm):
-    nama = forms.CharField(label="Nama :")
-    feedbackUser = forms.CharField(widget=forms.Textarea, label='Feedback :')
+    nama = forms.CharField(label="Nama")
+    feedbackUser = forms.CharField(widget=forms.Textarea, label='Feedback')
     class Meta:
         model = Feedback
         fields = '__all__'
     
 class SignUpForm(UserCreationForm):
     password1 = forms.CharField(
-        label="Password :",
+        label="Password",
         widget=forms.PasswordInput(
             attrs={
                 'class': 'form-control',
@@ -24,7 +24,7 @@ class SignUpForm(UserCreationForm):
         )
     )
     password2 = forms.CharField(
-        label="Password Confirmation :",
+        label="Confirm Password",
         widget=forms.PasswordInput(
             attrs={
                 'class': 'form-control',
@@ -37,8 +37,8 @@ class SignUpForm(UserCreationForm):
     class Meta :
         model = User
         fields= ("email",'username')
-        labels ={'username':'Username :','email':'Email :',}
-        widgets ={
+        labels = {'username':'Username','email':'Email',}
+        widgets = {
             'username': forms.TextInput(attrs={'class':'form-control','placeholder': "Enter your username here",  "autocomplete":"off"}),
             'email': forms.TextInput(attrs={'class':'form-control','placeholder': "Enter your email here",  "autocomplete":"off"}),
         }
@@ -46,26 +46,19 @@ class SignUpForm(UserCreationForm):
             "username":None,
         }
 
-
-    
-    
-    
-    
-
 class PenggunaForm(forms.ModelForm):
     class Meta :
         model = Pengguna
         fields =['namalengkap','lokasi','institusi','pekerjaan']
-        labels = {'lokasi':'Lokasi :','institusi':'Institusi :','pekerjaan':'Pekerjaan :','namalengkap':"Nama Lengkap :"}
+        labels = {'lokasi':'Lokasi','institusi':'Institusi','pekerjaan':'Pekerjaan','namalengkap':"Nama Lengkap"}
         widgets ={
             'lokasi': forms.TextInput(attrs={'class':'form-control','placeholder': "Enter your location here"}),
-            'institusi': forms.TextInput(attrs={'class':'form-control','placeholder': "Enter your Instution here"}),
-            'pekerjaan': forms.TextInput(attrs={'class':'form-control','placeholder': "Enter your Work here"}),
-            'namalengkap': forms.TextInput(attrs={'class':'form-control','placeholder': "Enter your Full Name here"})}
-
+            'institusi': forms.TextInput(attrs={'class':'form-control','placeholder': "Enter your institution here"}),
+            'pekerjaan': forms.TextInput(attrs={'class':'form-control','placeholder': "Enter your work here"}),
+            'namalengkap': forms.TextInput(attrs={'class':'form-control','placeholder': "Enter your full name here"})}
 
 class LoginForm(AuthenticationForm):
-    username = forms.CharField(label="Username", 
+    username = forms.CharField(label="Username",
     widget=forms.TextInput(
         attrs={
         'class' : 'form-control',

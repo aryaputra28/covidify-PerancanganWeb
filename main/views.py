@@ -6,7 +6,6 @@ from .models import *
 from .forms import *
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
-# from .forms import LoginForm, SignUpForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
@@ -39,7 +38,7 @@ def formFeedback(request):
     }
     return render(request, 'main/feedbackForm.html',context)
     
-@login_required(login_url="main:login")
+# @login_required(login_url="main:login")
 def listFeedback(request):
     feedbacks = Feedback.objects.all()
     return render (request,'main/feedbackList.html',{'feedbacks':feedbacks})
@@ -60,7 +59,7 @@ def signUp(request):
                 akun = user
             )
             login(request, user)
-            return HttpResponseRedirect('/login')
+            return HttpResponseRedirect('/')
 
         else:
             for msg in form.error_messages:
@@ -71,7 +70,8 @@ def signUp(request):
         form2 = PenggunaForm()
 
     context = {
-        'form' : form,'form2':form2
+        'form' : form,
+        'form2':form2,
     }
 
     return render(request, "main/signup.html", context)
@@ -89,10 +89,10 @@ def login_view(request):
 
             if user is not None and valuenext == "":
                 login(request, user)
-                return redirect('/')
+                return redirect('main:home')
             if user is not None and valuenext != "":
                 login(request, user)
-                return redirect("/")
+                return redirect(valuenext)
         else:
             messages.error(request, 'Invalid entry')
 
