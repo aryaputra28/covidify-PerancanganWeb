@@ -16,13 +16,9 @@ def index(request):
         if form.is_valid():
             data = form.cleaned_data
             alternatives = Alternatives()
-            preference = Preference()
             alternatives.pengguna = Pengguna.objects.get(akun=request.user)
-            preference.pengguna = Pengguna.objects.get(akun=request.user)
             alternatives.text = data['text']
             alternatives.save()
-            preference.alternatives = alternatives
-            preference.save()
             messages.success(request, (f"Rekomendasi dari {request.user.username} berhasil ditambahkan!"))
 
             return redirect('health_protocol:healthProtocol')
@@ -54,7 +50,7 @@ def alternativesPreference(request, alt_id, userpreference):
         valueobj = ''
 
         try:
-            obj = Preference.objects.get(pengguna=request.user, alternatives=each_alt)
+            obj = Preference.objects.get(pengguna=Pengguna.objects.get(akun=request.user), alternatives=each_alt)
             valueobj = obj.value # value of userpreference
             valueobj = int(valueobj)
             userpreference = int(userpreference)
@@ -62,7 +58,7 @@ def alternativesPreference(request, alt_id, userpreference):
             if valueobj != userpreference:
                 obj.delete()
                 upref = Preference()
-                upref.pengguna = request.user
+                upref.pengguna = Pengguna.objects.get(akun=request.user)
                 upref.alternatives = each_alt
                 upref.value = userpreference
 
@@ -93,10 +89,10 @@ def alternativesPreference(request, alt_id, userpreference):
 
         except Preference.DoesNotExist:
             upref = Preference()
-            upref.pengguna = request.user
+            upref.pengguna = Pengguna.objects.get(akun=request.user)
             upref.alternatives = each_alt
-            upref.value = userpreference
             userpreference = int(userpreference)
+            upref.value = userpreference
 
             if userpreference == 1:
                 each_alt.upvotes += 1
