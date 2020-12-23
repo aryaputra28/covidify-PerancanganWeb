@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from .models import Rumah_Sakit
 from .forms import Form_RS
+from django.core import serializers
+from django.http import HttpResponse
 
 def tambahRS(request):
     form = Form_RS() #data dari form
@@ -28,3 +30,8 @@ def tambahRS(request):
 def listRS(request):
     all_data = Rumah_Sakit.objects.all()
     return render(request, 'list_rs/list_rs.html', {'ListRs':all_data})
+
+def api_rs(request):
+    rs = Rumah_Sakit.objects.all()
+    json_rs = serializers.serialize('json', rs)
+    return HttpResponse(json_rs, content_type="text/json-comment-filtered")

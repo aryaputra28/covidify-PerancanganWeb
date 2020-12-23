@@ -20,6 +20,44 @@
                 "ordering" : false
 
         });
+
+        var table = $('#list_rs').DataTable();
+        $('#list_rs tbody').on('click', 'tr', function () {
+        var data = table.row( this ).data();
+        alert( 'You clicked on '+data[0]+'\'s row' );
+        } );
+
+        $("#but").on("mouseenter", function(){
+            $(this).css("background-color", "#DCCFEE");
+        });
+
+        $("#but").on("mouseleave", function(){
+            $(this).css("background-color", "#232065");
+        });
+
+        $.ajax({
+            url: "/data",
+            success: function(data) {
+                console.log("test")
+                console.log(data)
+                $('#isi').html('')
+                var result = '<tr>';
+                for(var i = 0; i < data.length; i++) {
+                    var obj = data[i];
+                    result += "<tr>"+
+                    "<td>" + obj.fields.provinsi + "</td>" +
+                    "<td>" + obj.fields.nama_rs + "</td>" +
+                    "<td>" + obj.fields.alamat+ "</td>" +
+                    "<td>" + obj.fields.telepon + "</td>"+
+                    "<td> <a id = 'web' class='btn btn-primary' style = 'background-color:#DCCFEE' href='" + 
+                    obj.fields.website + "' target= '_blank' role='button'>Website</a> </td>"
+                                
+                }
+                $('#isi').append(result);
+            }
+        })
+        
+
     } );
 </script>
 
@@ -43,51 +81,21 @@
                         </tr>
                         </thead>
 
-                        <tbody>
-
-                            {% for data in ListRs %} <!--ListMatkul dapet dari salah satu def di views-->
-                            
-                            <tr>
-                                <td>
-                                    {{data.provinsi}}
-                                </td>
-
-                                <td>
-                                    {{data.nama_rs}}
-                                </td>
-
-                                <td>
-                                    <div class="accordion" id="accordionExample">
-                                        {{data.alamat}}
-                                    </div>
-                                </td>
-
-                                <td>
-                                    {{data.telepon}}
-                                </td>
-
-                                <td> 
-                                    <a class="btn btn-primary" style = "background-color:#DCCFEE"
-                                    href= "{{data.website}}" target= '_blank' role="button">Website</a>
-                                </td>
-
-                            </tr>
-
-                            {% endfor %}
+                        <tbody id = "isi">
                         </tbody>
                     </table>
                 </div>
                 <br>
                 {% if user.is_authenticated %}
                 <div class= "container-fluid text-right" style="margin-bottom: 100px;">
-                <a class="btn btn-primary btn-lg" 
+                <a id = "but" class="btn btn-primary btn-lg" 
                     style= "background-color: #232065"
                     href="{% url 'list_rs:tambahRS'  %}" 
                     role="button">Add</a>
                 </div>
                 {% else %}
                 <div class= "container-fluid text-right" style="margin-bottom: 100px;">
-                <a class="btn btn-primary btn-lg"
+                <a id = "but" class="btn btn-primary btn-lg"
                     onClick="alert('Anda belum login, silakan login terlebih dahulu')"
                     style= "background-color: #232065"
                     href="{% url 'main:login'  %}" 
