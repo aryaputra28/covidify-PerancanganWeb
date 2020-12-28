@@ -8,6 +8,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.core import serializers
 
 def home(request):
     url = "https://covid-193.p.rapidapi.com/statistics"
@@ -113,3 +114,8 @@ def logout_view(request):
         'form' : form,
     }
     return redirect('main:login')
+
+def api_feedback(request):
+    rs = Feedback.objects.all()
+    json_feedback = serializers.serialize('json', rs)
+    return HttpResponse(json_feedback, content_type="text/json-comment-filtered")

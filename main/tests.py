@@ -26,6 +26,10 @@ class DetailTest(TestCase):
         response = Client().get('/formFeedback')
         self.assertTemplateUsed(response,"main/feedbackForm.html")
 
+    def test_main_penggunaan_templateFeedback2(self) :
+        response = Client().get('/feedbacks')
+        self.assertTemplateUsed(response,"main/feedbackList.html")
+
     def test_main_penggunaan_templateIndex(self):
         response = Client().get('/')
         self.assertTemplateUsed(response,"main/home.html")
