@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block meta %}
+
 <header> 
   <link rel="stylesheet" href="{% static 'css/homefeed.css' %}"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.js"></script>
   <div class="cover" style="background-image: url(static/image/tst.png);">
     <div class="container-fluid">
       <div class="row">
@@ -91,4 +94,12 @@
     </div>
   </div>
 </div>
+<script type="text/javascript">
+  $("label.switch").click(function() {
+    $("p").toggleClass("light-font")
+    $("body").toggleClass("dark-bg")
+  })
+  $("#keenam").counterUp({delay:30, time:2000})
+  $("#ketujuh").counterUp({delay:30, time:500})
+</script>
 {% endblock content %}
