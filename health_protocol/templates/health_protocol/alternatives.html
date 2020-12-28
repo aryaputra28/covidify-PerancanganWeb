@@ -27,24 +27,32 @@
                 </th>
             </thead>
             <tbody>
-                {% for i in alternatives %}
+                {% for alternative in alternatives %}
                 <tr>
                     <td>
                         <div class="card card-alternative">
-                            <h2 style="font-style:italic">"{{i.text}}"</h2>
-                            <p>oleh <span style="font-weight: bold">{{i.username}}</span> | &#128077;{{i.upvotes}} &#128078;{{i.downvotes}}</p>
+                            <h2 style="font-style:italic">"{{alternative.text}}"</h2>
+                            <p>oleh <span style="font-weight: bold">{{alternative.pengguna.namalengkap}}</span> | {{alternative.pub_date}} | &#128077;{{alternative.upvotes}} &#128078;{{alternative.downvotes}}</p>
                             <nav class="navbar">
                                 <div class="nav">
-                                    <a href="{% url 'health_protocol:upvote' i.id %}">
+                                    <a href="#" onClick="document.getElementById('upvotebtn').submit()">
                                         <button class="nav navbar btn btn-success" type="button">
                                             Boleh tuh!
                                         </button>
                                     </a>
-                                    <a href="{% url 'health_protocol:downvote' i.id %}">
+                                    <a href="#" onClick="document.getElementById('downvotebtn').submit()">
                                         <button class="nav navbar btn btn-danger" type="button">
                                             Skip deh...
                                         </button>
                                     </a>
+                                    <form id='upvotebtn' method='POST' action="{{alternative.id}}/1">
+                                        {% csrf_token %}
+                                        <input type='hidden'>
+                                    </form>
+                                    <form id='downvotebtn' method='POST' action="{{alternative.id}}/2">
+                                        {% csrf_token %}
+                                        <input type='hidden'>
+                                    </form>
                                 </div>
                             </nav>
                         </div>

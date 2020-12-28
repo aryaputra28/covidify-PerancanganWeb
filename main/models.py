@@ -12,4 +12,7 @@ class Pengguna(models.Model):
     lokasi = models.CharField(max_length=100)
     pekerjaan = models.CharField(max_length=100)
     institusi = models.CharField(max_length=100)
-    akun = models.ForeignKey(User,on_delete=models.CASCADE)
+    akun = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return "{} | {} | {} | {}".format(self.namalengkap, self.lokasi, self.pekerjaan, self.institusi)

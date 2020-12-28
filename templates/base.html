@@ -2,7 +2,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
 <head>
   <title>Covidify</title>
   <meta charset="utf-8">
@@ -20,53 +19,67 @@
   <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
 </head>
 
+{% url 'health_protocol:healthProtocol' as healthProtocol_url %}
+{% url 'list_rs:listRS' as listRS_url %}
+{% url 'rapidTest:rapid' as rapidTest_url %}
+{% url 'qna:lihatPertanyaan' as qna_url %}
+{% url 'main:feedbacklist' as feedback_url %}
+{% url 'main:login' as login_url %}
+{% url 'main:signup' as signup_url %}
 
 <nav class="navbar navbar-expand-md navbar-dark" style="background-color: rgba(44, 23, 93); font-family: 'Poppins', sans-serif;">
   <a class="navbar-brand" href="{% url 'main:home' %}" style="color: #EC6542;">Covidify</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     <span class="navbar-toggler-icon"></span>
   </button>
-    <div class="collapse navbar-collapse " id="collapsibleNavbar">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'health_protocol:healthProtocol' %}" style="color: white;">Health Protocol</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'list_rs:listRS' %}" style="color: white;">Hospital</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'rapidTest:rapid' %}" style="color: white;">Rapid Test</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'qna:lihatPertanyaan' %}" style="color: white;">QnA</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'main:feedbacklist' %}" style="color: white;">Feedback</a>
-        </li>
-      </div>
-        <ul class="navbar-nav">
-          {% if user.is_authenticated %}
-          <li class="nav-item">
-            <a style="color: white; font-weight: bold;" class="nav-link" href="/">Hello, {{request.user}}</a></li>
-          </li>
-         
-          <li class="nav-item">
-            <a style="color: white; font-weight: bold;" class="nav-link" href="{% url 'main:logout' %}">Logout</a></li>
-          </li>
-          {% else %}
-          <li class="nav-item">
-            <a style="color: white; font-weight: bold;" class="nav-link" href="{% url 'main:login' %}">Login</a></li>
-          </li>
-          <li class="nav-item">
-            <a style="color: white; font-weight: bold;" class="nav-link" href="{% url 'main:signup' %}">Register</a></li>
-          </li>
-          {% endif %}
-        </ul>
-      </ul>
+  <div class="collapse navbar-collapse justify-content-between" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+      <!-- Health Protocol -->
+      <li class="nav-item">
+        <a class="nav-link {% if request.path == healthProtocol_url %} active {% endif %}" href="{% url 'health_protocol:healthProtocol' %}" style="color: white;">Health Protocol</a>
+      </li>
+      <!-- List RS -->
+      <li class="nav-item">
+        <a class="nav-link {% if request.path == listRS_url %} active {% endif %}" href="{% url 'list_rs:listRS' %}" style="color: white;">Hospital</a>
+      </li>
+      <!-- Rapid Test -->
+      <li class="nav-item">
+        <a class="nav-link {% if request.path == rapidTest_url %} active {% endif %}" href="{% url 'rapidTest:rapid' %}" style="color: white;">Rapid Test</a>
+      </li>
+      <!-- QNA -->
+      <li class="nav-item">
+        <a class="nav-link {% if request.path == qna_url %} active {% endif %}" href="{% url 'qna:lihatPertanyaan' %}" style="color: white;">QnA</a>
+      </li>
+      <!-- Feedback -->
+      <li class="nav-item">
+        <a class="nav-link {% if request.path == feedback_url %} active {% endif %}" href="{% url 'main:feedbacklist' %}" style="color: white;">Feedback</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav">
+      {% if user.is_authenticated %}
+      <!-- Hello, {user} -->
+      <li class="nav-item">
+        <a style="color: white; font-weight: bold;" class="nav-link" href="/">Hello, {{ request.user }}</a></li>
+      </li>
+      <!-- Logout -->
+      <li class="nav-item">
+        <a style="color: white; font-weight: bold" class="nav-link" href="{% url 'main:logout' %}">Logout</a></li>
+      </li>
+      {% else %}
+      <!-- Login -->
+      <li class="nav-item">
+        <a style="color: white" class="nav-link" href="{% url 'main:login' %}">Login</a></li>
+      </li>
+      <!-- Register -->
+      <li class="nav-item">
+        <a style="color: white;" class="nav-link" href="{% url 'main:signup' %}">Register</a></li>
+      </li>
+      {% endif %}
+    </ul>
+  </div>
 </nav>
+
 {% block meta %}
-
-
 {% endblock meta %}
 <body >
   {% block content %}

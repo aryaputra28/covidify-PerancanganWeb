@@ -5,13 +5,14 @@
 {% endblock meta %}
 
 {% block content %}
+
 <div class="container-fluid">
     <div class = "row">
         <div class="col-sm-12">
-            <h2 class="text-center"><b>Sign-Up Your Account</b></h2>
+            <h2 class="text-center" style="margin-top: 20px;"><b>Join Us!</b></h2>
             <br>
             <br>
-            <div class="col d-flex justify-content-center ">
+            <div class="col d-flex justify-content-center">
                 <div class="card " style="width: 50rem;">
                     <div class="card-header" style="background-color: #232065;">
                         <p style="text-align: center; font-weight: bolder; color: white; font-size: larger;">SIGN UP</p>
@@ -19,14 +20,14 @@
                     <div class="card-body">
                         <form class="align-self-center" action="" method="POST">
                             {% csrf_token %}
-                            {{ form2}}
+                            {{ form2 }}
                             {{ form }}
                             <br>
-                            <input type="hidden" name="next" value="{{ request.GET.next }}"/>
-                            <button style= "background-color: #232065" type="submit" class="btn btn-primary btn-m">Login</button>
+                            <input type="hidden" name="next" value="{{ request.GET.next }}">
+                            <button style= "background-color: #232065" type="submit" class="btn btn-primary btn-m">Sign Up</button>
                         </form>
                         <p style="margin-top: 10px;">
-                            Have account already? <a class="sign-up-in-link" href="{% url 'main:login' %}"><strong>Log in.</strong></a>
+                            Already have an existing account? <a class="sign-up-in-link" href="{% url 'main:login' %}"><strong>Log in.</strong></a>
                         </p>
                     </div>
                 </div>
@@ -34,5 +35,7 @@
         </div>
     </div>
 </div>
+<br>
+<br>
 
 {% endblock content %}
