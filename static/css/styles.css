@@ -52,7 +52,7 @@ input:checked + .switch:active::before {
 }
 
 .dark-bg {
-  background-color: #262833 !important;
+  background-color: rgba(44, 23, 93) !important;
   color: white !important;
   transition: .5s ease-out;
 }
