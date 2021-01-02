@@ -3,7 +3,7 @@ from django.utils import timezone
 
 # Create your models here.
 class pertanyaan(models.Model):
-    penanya = models.CharField(max_length=400)
+    penanya = models.CharField(max_length=400, default="admin")
     pertanyaan = models.TextField(max_length=800)
     location = models.TextField(max_length=400,default="Depok")
     time = models.DateTimeField(default=timezone.now)
@@ -13,7 +13,7 @@ class pertanyaan(models.Model):
         return "{} | {} ".format(self.penanya,self.pertanyaan)
 
 class komentar(models.Model):
-    pengomentar = models.CharField(max_length=400)
+    pengomentar = models.CharField(max_length=400, default="admin")
     komen = models.TextField(max_length =800)
     tanya = models.ForeignKey(pertanyaan, on_delete = models.CASCADE)
     time = models.DateTimeField(default=timezone.now)

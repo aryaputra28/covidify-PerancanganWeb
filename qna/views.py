@@ -3,13 +3,12 @@ from .models import *
 from .forms import *
 from django.http.response import HttpResponseRedirect
 from main.models import Pengguna
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AnonymousUser, User
 from django.core import serializers
 from django.http import HttpResponse
 
 def forum(request):
     pertanyaan_form = pertanyaanForm(request.POST or None)
-    objectPengguna = request.user
     listpertanyaan = pertanyaan.objects.all()
     context ={
                 'pertanyaan':listpertanyaan,
@@ -17,14 +16,22 @@ def forum(request):
             }
     if request.method == 'POST':
         if pertanyaan_form.is_valid():
-            penggunaModel = Pengguna.objects.get(akun=objectPengguna)
-            listpertanyaan.create(
-                penanya = penggunaModel.namalengkap,
-                location = penggunaModel.lokasi,
-                pertanyaan = pertanyaan_form.cleaned_data.get('pertanyaan'),
-                email = objectPengguna.email
-            )
-            return render(request,'forum.html',context)
+            if(request.user.is_authenticated == False):
+                listpertanyaan.create(
+                    pertanyaan = pertanyaan_form.cleaned_data.get('pertanyaan'),
+                )
+                return render(request,'forum.html',context)
+            else:
+                objectPengguna = request.user
+                penggunaModel = Pengguna.objects.get(akun=objectPengguna)
+                listpertanyaan.create(
+                    penanya = penggunaModel.namalengkap,
+                    location = penggunaModel.lokasi,
+                    pertanyaan = pertanyaan_form.cleaned_data.get('pertanyaan'),
+                    email = objectPengguna.email
+                )
+                return render(request,'forum.html',context)
+            
     return render(request,'forum.html',context)
     
 
@@ -53,16 +60,23 @@ def balas(request,komen_id):
         'form_balasan' : balasan_form, 'count':b,'komenid':komen_id
     }
     if request.method == 'POST' :
-        objectPengguna = request.user
-        penggunaModel = Pengguna.objects.get(akun=objectPengguna)
+        
         if balasan_form.is_valid():
-            balasan.create(
-                pengomentar = penggunaModel.namalengkap,
+            if(request.user.is_authenticated == False):
+                balasan.create(
                 komen = balasan_form.cleaned_data.get('komen'),
-                location =  penggunaModel.lokasi,
-                tanya = listPertanyaan,
-                email = objectPengguna.email
+                tanya = listPertanyaan
             )
+            else :
+                objectPengguna = request.user
+                penggunaModel = Pengguna.objects.get(akun=objectPengguna)
+                balasan.create(
+                    pengomentar = penggunaModel.namalengkap,
+                    komen = balasan_form.cleaned_data.get('komen'),
+                    location =  penggunaModel.lokasi,
+                    tanya = listPertanyaan,
+                    email = objectPengguna.email
+                )
             return redirect('qna:balas', komen_id=komen_id)
             
     return render(request,'forum-pertanyaan.html',context)
