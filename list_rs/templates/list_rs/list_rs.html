@@ -21,12 +21,6 @@
 
         });
 
-        var table = $('#list_rs').DataTable();
-        $('#list_rs tbody').on('click', 'tr', function () {
-        var data = table.row( this ).data();
-        alert( 'You clicked on '+data[0]+'\'s row' );
-        } )
-
         $("#but").on("mouseenter", function(){
             $(this).css("background-color", "#DCCFEE");
         });
