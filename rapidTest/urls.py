@@ -6,4 +6,5 @@ app_name = 'rapidTest'
 urlpatterns = [
     path('rapidTest/', views.rapidTest, name='rapid'),
     path('formRapid/', views.form_Rapid, name='form'),
+    path('dataRapid/', views.api_rapid, name = 'dataRapid'),
 ]

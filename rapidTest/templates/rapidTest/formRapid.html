@@ -19,6 +19,38 @@
 <div class = "cover2"></div>
 <h2 class = "judul">TAMBAH TEMPAT RAPID TEST</h2>
 
+<script>
+  $(document).ready(function() {
+    $("#tombol-add").on("mouseenter", function(){
+      $(this).css("background-color", "#F8BDB8");
+      $(this).css("border-color", "#DF6357");
+
+    });
+
+    $("#tombol-add").on("mouseleave", function(){
+      $(this).css("background-color", "#DF6357");
+    });
+
+    $("#tombol-back").on("mouseenter", function(){
+      $(this).css("background-color", "#F8BDB8");
+      $(this).css("border-color", "#DF6357");
+
+    });
+
+    $("#tombol-back").on("mouseleave", function(){
+      $(this).css("background-color", "#DF6357");
+    });
+
+    $("label.switch").click(function() {
+        $("body").toggleClass("dark-bg")
+        $("h5").css("color", "black");
+        $("h8").css("color", "black");     
+    })
+
+  });
+</script>
+
+
 <section>
   <div class="container-fluid ">
     <div class = "row">
@@ -45,13 +77,13 @@
                     <div class="d-flex justify-content-center">{{form.alamat}}</div>
                     <br>
 
-                    <button style= "background-color: #DF6357" type="submit" class="btn btn-danger btn-lg">Add</button>
+                    <button id="tombol-add" style= "background-color: #DF6357" type="submit" class="btn btn-danger btn-lg">Add</button>
                   </div>
                 </div>
               </form>
 
               <!-- Tombol ke halaman daftar tempat rapid test -->
-              <a class="btn btn-danger btn-lg" style= "background-color: #DF6357" href="{% url 'rapidTest:rapid' %}" role="button">Back</a>                            
+              <a id="tombol-back" class="btn btn-danger btn-lg" style= "background-color: #DF6357" href="{% url 'rapidTest:rapid' %}" role="button">Back</a>                            
             
             </div>
           </div>

@@ -11,4 +11,5 @@ urlpatterns = [
     path('signup/', views.signUp, name='signup'),
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
+    path('dataFeedback/',views.api_feedback, name= 'dataFeedback'),
 ]

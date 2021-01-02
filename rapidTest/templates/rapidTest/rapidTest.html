@@ -16,18 +16,53 @@
     $(document).ready(function() {
       $('#rapidTest').DataTable({
           "aLengthMenu":[[3, 5, 10, 25], [3, 5, 10, 25]],
-            "iDisplayLength":3,
-            "ordering":false,         
+          "iDisplayLength":3,
+          "ordering":false,         
       });
-    });
-  </script>
+      
 
+      $("#tombol").on("mouseenter", function(){
+        $(this).css("background-color", "#F8BDB8");
+        $(this).css("border-color", "#DF6357");
+
+      });
+
+      $("#tombol").on("mouseleave", function(){
+        $(this).css("background-color", "#DF6357");
+      });
+
+      $("label.switch").click(function() {
+          $("body").toggleClass("dark-bg")
+          $("h2").toggleClass("light-font")
+         // $(".dataTables_wrapper").css("color", "white");
+      })
+      
+      $.ajax({
+        url: "/dataRapid",
+        success: function(data) {
+          $('#isidata').html('')
+            var result = '<tr>';
+            for(var i = 0; i < data.length; i++) {
+              var obj = data[i];
+              result += "<tr>"+
+              "<th class='text-center' scope='row'>" + obj.fields.nama_tempat + "</th>" +
+              "<td class='text-center'>" + obj.fields.tanggal_pelaksanaan_mulai + " s/d " + obj.fields.tanggal_pelaksanaan_akhir + "</td>" +
+              "<td class='text-center'>" + obj.fields.biaya + "</td>"+
+              "<td class='text-center'>" + obj.fields.alamat + "</td>"                                
+            }
+          $('#isidata').append(result);
+        }
+      })
+
+  });
+  </script>
+  
  <!-- Tabel Daftar Tempat Rapid Test -->
   <div id="tabel">  
     <div class="container-fluid">
       <div class="table-responsive-md">
  
-        <table id="rapidTest" class="table table-striped" >
+        <table id="rapidTest" class="table" >
           <thead>
             <tr style="background-color: #DF6357;color: white;"> 
               <th id="nama" class="text-center" scope="col">Nama Tempat</th>
@@ -38,15 +73,8 @@
           </thead>
 
           <!-- Menampilkan data dengan loop data dari obj yang ada di views -->
-          <tbody>
-            {% for i in obj %} 
-            <tr>        
-              <th class="text-center" scope="row">{{i.nama_tempat}}</th>
-              <td class="text-center">{{i.tanggal_pelaksanaan_mulai}} - {{i.tanggal_pelaksanaan_akhir}}</td>
-              <td class="text-center">{{i.biaya}}</td>
-              <td class="text-center">{{i.alamat}}</td>           
-            </tr>
-            {% endfor %}
+          <tbody id = "isidata">
+           <!-- isi table dari pemanggilan ajax-->
           </tbody>
 
          </table>
@@ -56,13 +84,13 @@
       {% if user.is_authenticated %}
       <div class="d-flex justify-content-end" id="btn-add1">
         <a href="{% url 'rapidTest:form' %}">
-          <button type="button" class="btn btn-light btn-lg" style="background-color: #DF6357;color: white;">Add</button>
+          <button id = "tombol" type="button" class="btn btn-light btn-lg" style="background-color: #DF6357;color: white;">Add</button>
         </a>
       </div>
       {% else %}
       <div class="d-flex justify-content-end" id="btn-add1">
         <a onClick="alert('Anda belum login, silakan login terlebih dahulu')" href="{% url 'main:login'  %}">
-          <button type="button" class="btn btn-light btn-lg" style="background-color: #DF6357;color: white;">Add</button>
+          <button id = "tombol" type="button" class="btn btn-light btn-lg" style="background-color: #DF6357;color: white;">Add</button>
         </a>
       </div>
       {% endif %}
