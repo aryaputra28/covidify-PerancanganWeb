@@ -15,9 +15,6 @@ class qna_testPath(TestCase):
         c.login(username='fred', password='secret')
         response = c.get('/qna/',{},True)
         self.assertEquals(response.status_code,200)
-    def test_path_lihatPertanyaan(self):
-        response = Client().get('/lihatPertanyaan/',{},True)
-        self.assertEquals(response.status_code,200)
     def test_path_balas(self):
         new_model = pertanyaan.objects.create(penanya ='sabeb', pertanyaan='sabeb')
         response = Client().get('/balas/1/',{},True)
@@ -30,12 +27,6 @@ class qna_testInput(TestCase):
         self.assertIn('LETS DISCUSS ABOUT COVID',html)
         self.assertIn('Back',html)
         self.assertIn('Post',html)
-    def test_input_lihatPertanyaan(self):
-        new_model = pertanyaan.objects.create(penanya ='Gilang', pertanyaan='Apa itu Covidify')
-        response = Client().get('/lihatPertanyaan/')
-        html = response.content.decode('utf-8')
-        self.assertIn('LETS DISCUSS ABOUT COVID',html)
-        self.assertIn('Add Question',html)
     def test_input_balas(self):
         new_model = pertanyaan.objects.create(penanya ='Gilang', pertanyaan='Apa itu Covidify')
         komen = komentar.objects.create(pengomentar='Cey', komen="Ini adalah ..", tanya=new_model)
@@ -53,9 +44,6 @@ class qna_testFunction(TestCase):
     def test_url_using_func(self):
         found = resolve('/qna/')
         self.assertEqual(found.func, forum)
-    def test_url_using_func2(self):
-        found = resolve('/lihatPertanyaan/')
-        self.assertEqual(found.func, lihatPertanyaan)
     def test_url_using_func3(self):
         new_model = pertanyaan.objects.create(penanya ='Gilang', pertanyaan='Apa itu Covidify')
         found = resolve('/balas/1/')
@@ -77,9 +65,6 @@ class qna_testModel(TestCase):
 class qna_testTemplate(TestCase):
     def test_form_template_used1(self):
         response = Client().get('/qna/')
-        self.assertTemplateUsed(response, 'forum.html')
-    def test_form_template_used2(self):
-        response = Client().get('/lihatPertanyaan/')
         self.assertTemplateUsed(response, 'forum.html')
     def test_form_template_used3(self):
         pertanyaan1 = pertanyaan.objects.create(penanya ='Gilang', pertanyaan='Apa itu Covidify')

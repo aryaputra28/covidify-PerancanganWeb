@@ -10,6 +10,13 @@
 {% endblock meta %}
 
 {% block content %}
+
+<script src="/static/qna-js.js"></script>
+
+<div id="komen" style="display: none;">
+    {{komenid}}
+</div>
+
 <br> <br>
     <h3>
       <center> <b> LETS DISCUSS ABOUT COVID </b></center>
@@ -19,7 +26,7 @@
 <div>
 <div class="container">
     <div>
-        <a href="{%url 'qna:lihatPertanyaan'%}" class="btn btn-danger">Back</a>
+        <a href="{%url 'qna:forum'%}" class="btn btn-danger">Back</a>
     </div>
     <br>
                 
@@ -72,42 +79,20 @@
 </div>
 <br>
 
-<script>
-    $(document).ready( function () {
-        $('#ktable').DataTable({
-            "dom": 'rtp',
-            "scrollY": "500px",
-            "scrollCollapse": true,
-            "paging": false,
-            "ordering" : false,
-        });
-    });
-
-</script>
 {% if count > 0 %}
+
 <div class="container">
-        <table id="ktable" class="table border-0">
-            <thead>
-                <th class="table border-0">View all {{count}} comments</th>
-            </thead>
-            <tbody>
-                {%for i in list_balasan %}
-                {%if i.tanya == pertanyaan %}
-                <tr class=" table border-0">
-                    <td>
-                    <div>
-                                <div class="card card-komen">
-                                    <div class="border-bottom border-dark"><b>{{i.pengomentar}}</b> </div>
-                                    <div class=>{{i.komen}}</div>
-                                    <div class= "small">{{i.location}} on {{i.time}} | {{i.email}}</div>   
-                        </div> 
-                    </div>
-                    </td>
-                </tr>
-            {%endif %}   
-            {%endfor %} 
+    <section>
+    <table id ="ptables" class="table border-0" >
+        <thead>
+            <th class="table border-0">
+                View all {{count}} comments
+            </th>
+        </thead>
+        <tbody id="isikomen">
         </tbody>
-        </table>
+    </table>
+</section>
 </div>
 {% endif %}
     

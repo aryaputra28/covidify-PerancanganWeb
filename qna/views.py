@@ -4,11 +4,17 @@ from .forms import *
 from django.http.response import HttpResponseRedirect
 from main.models import Pengguna
 from django.contrib.auth.models import User
+from django.core import serializers
+from django.http import HttpResponse
 
 def forum(request):
     pertanyaan_form = pertanyaanForm(request.POST or None)
     objectPengguna = request.user
     listpertanyaan = pertanyaan.objects.all()
+    context ={
+                'pertanyaan':listpertanyaan,
+                'pertanyaan_form':pertanyaan_form
+            }
     if request.method == 'POST':
         if pertanyaan_form.is_valid():
             penggunaModel = Pengguna.objects.get(akun=objectPengguna)
@@ -18,26 +24,17 @@ def forum(request):
                 pertanyaan = pertanyaan_form.cleaned_data.get('pertanyaan'),
                 email = objectPengguna.email
             )
-            
-            context ={
-                'status':1, 'pertanyaan':listpertanyaan
-            }
-
             return render(request,'forum.html',context)
-
-    context ={
-            'page_title':'Forum Keluarga',
-            'pertanyaan_form':pertanyaan_form, 
-            'status':2,
-    }
     return render(request,'forum.html',context)
     
 
 def lihatPertanyaan(request):
     listpertanyaan = pertanyaan.objects.all()
+    pertanyaan_form = pertanyaanForm(request.POST or None)
     
-    context = {'page_title':'Forum Keluarga',
-    'pertanyaan':listpertanyaan, 'status' :1
+    context = {
+    'pertanyaan':listpertanyaan,
+    'pertanyaan_form':pertanyaan_form
     }   
 
     return render(request,'forum.html',context)
@@ -53,7 +50,7 @@ def balas(request,komen_id):
             b = b+1
     context = {
         'list_balasan' : balasan, 'pertanyaan':listPertanyaan,
-        'form_balasan' : balasan_form, 'count':b
+        'form_balasan' : balasan_form, 'count':b,'komenid':komen_id
     }
     if request.method == 'POST' :
         objectPengguna = request.user
@@ -70,5 +67,14 @@ def balas(request,komen_id):
             
     return render(request,'forum-pertanyaan.html',context)
             
+def api_pertanyaan(request):
+    question = pertanyaan.objects.all()
+    json_question = serializers.serialize('json', question)
+    return HttpResponse(json_question, content_type="text/json-comment-filtered")
+
+def api_komen(request):
+    comment = komentar.objects.all()
+    json_comment = serializers.serialize('json', comment)
+    return HttpResponse(json_comment, content_type="text/json-comment-filtereds")
     
 
