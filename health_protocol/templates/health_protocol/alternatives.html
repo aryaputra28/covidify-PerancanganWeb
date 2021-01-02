@@ -11,6 +11,49 @@
     <br>
     <br>
 </header>
+
+<script>
+    $(document).ready(function() {
+        let display = false
+        $('.like-form').submit(function(e) {
+            e.preventDefault()
+
+            const alternative_id = $(this).attr('id')
+
+            const likeText = $(`.like-btn${alternative_id}`).text()
+            const trim = $.trim(likeText)
+
+            const url = $(this).attr('action')
+
+            let result;
+            const upvotes = $(`.like-count${alternative_id}`).text()
+            const trimCount = parseInt(upvotes)
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: {
+                    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                    'alternative_id': alternative_id,
+                },
+                success: function(response) {
+                    if (trim === 'Skip deh...') {
+                        $(`.like-btn${alternative_id}`).text('Boleh tuh!')
+                        result = trimCount - 1
+                    } else {
+                        $(`.like-btn${alternative_id}`).text('Skip deh...')
+                        result = trimCount + 1
+                    }
+
+                    $(`.like-count${alternative_id}`).text(result)
+                },
+                error: function(response) {
+                    console.log('error', response)
+                }
+            })
+        })
+    })
+</script>
 {% endblock meta %}
 
 {% block content %}
@@ -21,7 +64,7 @@
                 Back
             </button>
         </a>
-        <table id ="ptable" class="table border-0">
+        <table id="ptable" class="table border-0">
             <thead>
                 <th class="table border-0">
                 </th>
@@ -31,27 +74,20 @@
                 <tr>
                     <td>
                         <div class="card card-alternative">
-                            <h2 style="font-style:italic">"{{alternative.text}}"</h2>
-                            <p>oleh <span style="font-weight: bold">{{alternative.pengguna.namalengkap}}</span> | {{alternative.pub_date}} | &#128077;{{alternative.upvotes}} &#128078;{{alternative.downvotes}}</p>
+                            <h2 style="font-style:italic">"{{ alternative.text }}"</h2>
+                            <p>oleh <span style="font-weight: bold">{{ alternative.author.namalengkap }}</span> | {{ alternative.created }} | &#128077;<span class="like-count{{ alternative.id }}">{{ alternative.num_upvotes }}</span></p>
                             <nav class="navbar">
                                 <div class="nav">
-                                    <a href="#" onClick="document.getElementById('upvotebtn').submit()">
-                                        <button class="nav navbar btn btn-success" type="button">
-                                            Boleh tuh!
-                                        </button>
-                                    </a>
-                                    <a href="#" onClick="document.getElementById('downvotebtn').submit()">
-                                        <button class="nav navbar btn btn-danger" type="button">
-                                            Skip deh...
-                                        </button>
-                                    </a>
-                                    <form id='upvotebtn' method='POST' action="{{alternative.id}}/1">
+                                    <form action="{% url 'health_protocol:upvote' %}" method="POST" class="like-form" id="{{ alternative.id }}">
                                         {% csrf_token %}
-                                        <input type='hidden'>
-                                    </form>
-                                    <form id='downvotebtn' method='POST' action="{{alternative.id}}/2">
-                                        {% csrf_token %}
-                                        <input type='hidden'>
+                                        <input type="hidden" name="alternative_id" value="{{ alternative.id }}">
+                                        <button type="submit" class="btn btn-secondary like-btn{{ alternative.id }}">
+                                            {% if pengguna not in alternative.liked.all %}
+                                                Boleh tuh!
+                                            {% else %}
+                                                Skip deh...
+                                            {% endif %}
+                                        </button>
                                     </form>
                                 </div>
                             </nav>

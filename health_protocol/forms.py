@@ -1,7 +1,7 @@
 from django import forms
-from .models import Alternatives
+from .models import Alternative
 
-class AlternativesForm(forms.Form):
+class AlternativeForm(forms.Form):
     
     text = forms.CharField(label="Apa rekomendasi kamu?",
                                 max_length=400,

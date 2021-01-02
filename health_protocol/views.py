@@ -6,17 +6,18 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from main.models import Pengguna
 from django.core.exceptions import *
+from django.http import JsonResponse
 
 # Create your views here.
 def index(request):
     if request.method == "POST":
 
-        form = AlternativesForm(request.POST)
+        form = AlternativeForm(request.POST)
 
         if form.is_valid():
             data = form.cleaned_data
-            alternatives = Alternatives()
-            alternatives.pengguna = Pengguna.objects.get(akun=request.user)
+            alternatives = Alternative()
+            alternatives.author = Pengguna.objects.get(akun=request.user)
             alternatives.text = data['text']
             alternatives.save()
             messages.success(request, (f"Rekomendasi dari {request.user.username} berhasil ditambahkan!"))
@@ -24,8 +25,8 @@ def index(request):
             return redirect('health_protocol:healthProtocol')
 
     else:
-        form = AlternativesForm()
-        alternatives = Alternatives.objects.all()
+        form = AlternativeForm()
+        alternatives = Alternative.objects.all()
         context = {
             'form': form,
             'alternatives': alternatives,
@@ -33,78 +34,54 @@ def index(request):
         return render(request, 'health_protocol/index.html', context)
 
 def alternatives(request):
-    alternatives = Alternatives.objects.all()
+    alternatives = Alternative.objects.all()
 
-    context = {
-        'alternatives': alternatives,
-    }
+    if request.user.is_active:
+        pengguna = Pengguna.objects.get(akun=request.user)
+
+        context = {
+            'alternatives': alternatives,
+            'pengguna':pengguna,
+        }
+
+    else:
+        context = {
+            'alternatives': alternatives,
+        }
     
     return render(request, 'health_protocol/alternatives.html', context)
 
 @login_required(login_url='main:login')
-def alternativesPreference(request, alt_id, userpreference):
+def upvote(request):
+    pengguna = Pengguna.objects.get(akun=request.user)
     if request.method == "POST":
-        each_alt = get_object_or_404(Alternatives, id=alt_id)
+        alternative_id = request.POST.get('alternative_id')
+        alternatives = Alternative.objects.get(id=alternative_id)
 
-        obj = ''
-        valueobj = ''
+        if pengguna in alternatives.liked.all():
+            alternatives.liked.remove(pengguna)
+        else:
+            alternatives.liked.add(pengguna)
 
-        try:
-            obj = Preference.objects.get(pengguna=Pengguna.objects.get(akun=request.user), alternatives=each_alt)
-            valueobj = obj.value # value of userpreference
-            valueobj = int(valueobj)
-            userpreference = int(userpreference)
+        upvote, created = Upvote.objects.get_or_create(pengguna=pengguna, alternatives_id=alternative_id)
 
-            if valueobj != userpreference:
-                obj.delete()
-                upref = Preference()
-                upref.pengguna = Pengguna.objects.get(akun=request.user)
-                upref.alternatives = each_alt
-                upref.value = userpreference
+        if not created:
+            if upvote.value == 'Boleh tuh!':
+                upvote.value = 'Skip deh...'
+            else:
+                upvote.value = 'Boleh tuh!'
 
-                if userpreference == 1 and valueobj != 1:
-                    each_alt.upvotes += 1
-                    each_alt.downvotes -= 1
-                elif userpreference == 2 and valueobj != 2:
-                    each_alt.downvotes += 1
-                    each_alt.upvotes -= 1
+        else:
+            upvote.value = 'Boleh tuh!'
 
-                upref.save()
+            alternatives.save()
+            upvote.save()
 
-                each_alt.save()
+        data = {
+            'value':upvote.value,
+            'upvotes':alternatives.liked.all().count(),
+        }
 
-                return redirect('health_protocol:alternatives')
+        return JsonResponse(data, safe=True)
 
-            elif valueobj == userpreference:
-                obj.delete()
-
-                if userpreference == 1:
-                    each_alt.upvotes -= 1
-                elif userpreference == 2:
-                    each_alt.downvotes -= 1
-
-                each_alt.save()
-
-                return redirect('health_protocol:alternatives')
-
-        except Preference.DoesNotExist:
-            upref = Preference()
-            upref.pengguna = Pengguna.objects.get(akun=request.user)
-            upref.alternatives = each_alt
-            userpreference = int(userpreference)
-            upref.value = userpreference
-
-            if userpreference == 1:
-                each_alt.upvotes += 1
-            elif userpreference == 2:
-                each_alt.downvotes += 1
-
-            upref.save()
-            each_alt.save()
-
-            return redirect('health_protocol:alternatives')
-
-    else:
-        each_alt = get_object_or_404(Alternatives, id=alt_id)
-
-        return redirect('health_protocol:alternatives')
+    return redirect('health_protocol:alternatives')

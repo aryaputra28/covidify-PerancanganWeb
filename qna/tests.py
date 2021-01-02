@@ -9,7 +9,7 @@ from django.contrib.auth import login
 from django.contrib.auth.models import User
 
 
-# Create your tests here.
+# Create your tests here!
 class qna_testPath(TestCase):
     def test_path_qna(self):
         c = Client()
