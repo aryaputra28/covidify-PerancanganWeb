@@ -10,15 +10,21 @@
 </header>
 {% endblock meta %}
 {% block content %}
-  <script src="/static/qna-js.js"></script>
 
+  <script src="/static/qna-js.js"></script>
+  <script>
+    function myFunction() {
+    alert("Silahkan membaca pertanyaan- pertanyaan yang ada, untuk menambahkan pertanyaan dan komentar anda harus login dulu, terimakasih");
+    }
+    </script>
+<body OnLoad="myFunction()">
     <br> <br>
     <center>
         <h3>
         <b> LETS DISCUSS ABOUT COVID</b>
         </h3>
     </center>
-    <div class="container">
+    <div class="container" >
         <nav class="navbar">
         <div></div>
         {%if user.is_authenticated == True %}
@@ -78,7 +84,5 @@
         </table>
     </section>
     </div>
-
-
-  
+</body>
 {% endblock content %}
