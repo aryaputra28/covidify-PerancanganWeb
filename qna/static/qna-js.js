@@ -1,9 +1,4 @@
 $(document).ready( function () {
-    $('#ptable').DataTable({
-            "iDisplayLength": 4,
-            "ordering" : false,
-            "dom": 'frtp',
-    });
     $(".btn-qna").on("mouseleave", function(){
     $(this).css("background-color", "#232065");
     $(this).css("border-color", "blue");
@@ -40,14 +35,18 @@ $(document).ready( function () {
             var result = '<tr>';
             for(var i = 0; i < data.length; i++) {
                 var obj = data[i];
+                var currentDate = JSON.stringify(obj.fields.time);
+                currentDate = new Date(JSON.parse(currentDate));
+                var date = currentDate.toString();
+                date = date.substring(0,21);
                 console.log(obj.pk)
                 result += '<tr><td><div class="card card-qna"><div class=" border-bottom border-light"><b>'
                     +obj.fields.penanya+
                     '</b> </div><div>'
                         +obj.fields.pertanyaan+
                         '</div><div class="small">'
-                            +obj.fields.location+' on '+ obj.fields.time+ ' | ' +obj.fields.email+
-                            '</div><nav class="navbar navbar-inverse"><div class="nav"> </div><div class="nav"><a class="btn btn-qna2" href="/balas/'+obj.pk+ '/" target= "_blank" role="button">Open</a></div></nav></div><br></td></tr>';   
+                            +obj.fields.location+' on '+ date+ ' | ' +obj.fields.email+
+                            '</div><nav class="navbar navbar-inverse"><div class="nav"> </div><div class="nav"><a class="btn btn-qna2" href="/balas/'+obj.pk+ '/" role="button">Open</a></div></nav></div><br></td></tr>';   
                           
                           
             }
@@ -63,7 +62,11 @@ $(document).ready( function () {
             console.log("comment"+comment)
             for(var i = 0; i < data.length; i++) {
                 var obj = data[i];
-                console.log(obj)
+                var currentDate = JSON.stringify(obj.fields.time);
+                currentDate = new Date(JSON.parse(currentDate));
+                var date = currentDate.toString();
+                date = date.substring(0,21);
+                console.log(obj);
                 console.log(obj.pk)
                 if (obj.fields.tanya == comment){
                     result += '<tr class=" table border-0"><td><div><div class="card card-komen"><div class="border-bottom border-dark"><b>'
@@ -71,7 +74,7 @@ $(document).ready( function () {
                     '</b> </div><div class=>'
                     +obj.fields.komen+
                     '</div><div class= "small">'
-                    +obj.fields.location+' on '+obj.fields.time+' | '+obj.fields.email+
+                    +obj.fields.location+' on '+date+' | '+obj.fields.email+
                     '</div></div></div></td> </tr>'
                 }
             };
