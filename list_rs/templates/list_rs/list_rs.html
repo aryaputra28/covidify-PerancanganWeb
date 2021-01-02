@@ -25,7 +25,7 @@
         $('#list_rs tbody').on('click', 'tr', function () {
         var data = table.row( this ).data();
         alert( 'You clicked on '+data[0]+'\'s row' );
-        } );
+        } )
 
         $("#but").on("mouseenter", function(){
             $(this).css("background-color", "#DCCFEE");
@@ -44,6 +44,7 @@
                 var result = '<tr>';
                 for(var i = 0; i < data.length; i++) {
                     var obj = data[i];
+                    console.log("ini obj =" + obj)
                     result += "<tr>"+
                     "<td>" + obj.fields.provinsi + "</td>" +
                     "<td>" + obj.fields.nama_rs + "</td>" +
