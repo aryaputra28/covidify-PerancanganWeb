@@ -22,15 +22,8 @@ class TestModel(TestCase):
             )
         )
 
-        self.alternatives = Alternative.objects.create(
-            author = self.pengguna,
-            text = 'Alternatif covid'
-        )
-
-        self.upvotes = Upvote.objects.create(
-            pengguna = self.pengguna,
-            alternatives = self.alternatives
-        )
+        self.alternatives = Alternative.objects.create(author=self.pengguna, text='Alternatif covid')
+        self.upvotes = Upvote.objects.create(pengguna=self.pengguna, alternatives=self.alternatives)
 
     def test_if_alternatives_model_exist(self):
         hitung_jumlah_data = Alternative.objects.all().count()
@@ -86,3 +79,35 @@ class TestView(TestCase):
     def test_if_alternatives_template_exists_on_the_page(self):
         response = Client().get('/alternatives/')
         self.assertTemplateUsed(response, 'health_protocol/alternatives.html')
+
+    def test_if_content_are_present_on_health_protocol_page(self):
+        response = Client().get('/health_protocol/')
+        html = response.content.decode('utf-8')
+        self.assertIn('Nah, menurut kamu, adakah cara lain untuk mencegah penyebaran COVID-19?', html)
+        self.assertIn('Apa rekomendasi kamu?', html)
+        self.assertIn('Post', html)
+        self.assertIn('Lihat jawabanmu dan pengguna lainnya di sini!', html)
+        self.assertIn('Menuju List', html)
+
+    def test_if_content_are_present_on_alternatives_page(self):
+        pengguna = Pengguna.objects.create(
+            namalengkap = 'ABC',
+            lokasi = 'Jakarta',
+            pekerjaan = 'Mahasiswa',
+            institusi = 'UI',
+            akun = User.objects.create_user(
+                username = 'halohalobandung',
+                email = 'emailku@gmail.com',
+                password = 'resolusi2021'
+            )
+        )
+
+        alternatives = Alternative.objects.create(author=pengguna, text='Alternatif covid')
+
+        response = Client().get('/alternatives/')
+        html = response.content.decode('utf-8')
+
+        self.assertIn('ABC', html)
+        self.assertIn('Boleh tuh!', html)
+        self.assertIn('Back', html)
+        self.assertIn('Alternatif covid', html)
