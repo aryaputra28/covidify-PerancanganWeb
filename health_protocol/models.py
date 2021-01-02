@@ -1,30 +1,30 @@
 from django.db import models
-from django.contrib.auth.models import User
 from main.models import Pengguna
-from django.utils import timezone
 
 # Create your models here.
-class Alternatives(models.Model):
-    pengguna = models.ForeignKey(Pengguna, on_delete=models.CASCADE, blank=True, null=True)
+class Alternative(models.Model):
+    author = models.ForeignKey(Pengguna, on_delete=models.CASCADE, related_name='author')
     text = models.CharField(max_length=150)
-    pub_date = models.DateTimeField(default=timezone.now)
-    upvotes = models.PositiveIntegerField(default=0)
-    downvotes = models.PositiveIntegerField(default=0)
+    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
+    liked = models.ManyToManyField(Pengguna, default=None, blank=True, related_name='liked')
 
     def __str__(self):
-        return "{} | Text: {} | Upvotes: {} | Downvotes: {}".format(self.pengguna, self.text, self.upvotes, self.downvotes)
+        return "Author: {} | Text: {} | Upvotes: {}".format(self.author.namalengkap, self.text, self.num_upvotes)
 
-class Preference(models.Model):
-    pengguna = models.ForeignKey(Pengguna, on_delete=models.CASCADE, blank=True, null=True)
-    alternatives = models.ForeignKey(Alternatives, on_delete=models.CASCADE, blank=True, null=True)
+    @property
+    def num_upvotes(self):
+        return self.liked.all().count()
 
-    # value: 1 = like, 2 = dislike
-    value = models.IntegerField(default=0)
-    date = models.DateTimeField(auto_now=True)
+UPVOTE_CHOICES = (
+    ('Boleh tuh!', 'Boleh tuh!'),
+    ('Skip deh...', 'Skip deh...'),
+)
+
+class Upvote(models.Model):
+    pengguna = models.ForeignKey(Pengguna, on_delete=models.CASCADE)
+    alternatives = models.ForeignKey(Alternative, on_delete=models.CASCADE)
+    value = models.CharField(choices=UPVOTE_CHOICES, default='Boleh tuh!', max_length=30)
 
     def __str__(self):
-        return str(self.pengguna) + ' | ' + str(self.alternatives) + ' | Values: ' + str(self.value)
-
-    # class Meta:
-    #     unique_together = ("pengguna", "alternatives", "value")
-
+        return "ID: {} | Likers: {}".format(self.alternatives.id, self.alternatives.liked.all())
