@@ -35,8 +35,6 @@ class qna_testInput(TestCase):
         self.assertIn('LETS DISCUSS ABOUT COVID',html)
         self.assertIn('Gilang',html)
         self.assertIn('Apa itu Covidify',html)
-        self.assertIn('Cey',html)
-        self.assertIn('Ini adalah ..',html)
         self.assertIn('View all 1 comments',html)
 
     
