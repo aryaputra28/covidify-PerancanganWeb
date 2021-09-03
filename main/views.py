@@ -29,6 +29,7 @@ def home(request):
 
 def formFeedback(request):
     form = FeedbackForm()
+    print(request.method)
     if request.method == 'POST':
         form = FeedbackForm(request.POST)
         if form.is_valid():
